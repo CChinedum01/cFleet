@@ -1,0 +1,463 @@
+:root{
+    --pc: #444444;
+    /* --sc: white; */
+    --sc: #F5F5F5;
+    --outlll: #B1F0F7;
+    --outl: #3acbdf;
+    --green: green; 
+    --trans: #00000000; 
+    --sil: silver;
+    --sb: #0A192F;
+}
+body{
+    top: 0;
+    margin: 0;
+    cursor: default;
+    font-family: 'Roboto';
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--sc);
+    font-family: 'Roboto';
+    background-color: var(--sc);
+}
+/* START OF NAVIGATION */
+nav{
+    display: flex;
+    width: 100%;
+    height: 10%;
+    top: 0;
+    background-color: var(--sc);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    z-index: 10;
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+nav ul li{
+    list-style: none;
+    font-family: 'Roboto';
+    color: var(--outl);
+    font-size: 20px;
+}
+nav ul li a{
+    text-decoration: none;
+    color: var(--outl);
+}
+
+ nav ul li img{
+    width: 2.2rem;
+    height: 2.2rem;
+}
+nav ul li:nth-child(1){
+margin-right: auto;
+}
+nav ul li:nth-child(2){
+ margin-left: auto;
+ color: var(--outl);
+ padding: 0.5rem;
+ margin-right: 0.5rem;
+ border-radius: 0.6rem;
+ transition: all 0.2s ease-in-out;
+}
+nav ul li:nth-child(2):hover{
+ margin-right: 0.8rem;
+}
+/* END OF NAVIGATION */
+
+/* FIRST DIVISION */
+#fdiv{
+width: 100%;
+height: 100vh;
+/* background-image: url('/Svgs/bg1.png'); 
+background-position: center;
+background-size:contain;
+background-position-y: center;
+background-repeat: no-repeat; */
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+margin: 0;
+gap: 0.5px;
+font-family: Tektur;
+}
+#fdiv #fdiv_sub1{
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ display: flex;
+ gap: 0;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+}
+
+#fdiv #fdiv_sub2{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-image: url('/Svgs/bg1.png'); 
+    background-position: center;
+    background-size:contain;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+#fdiv h2{
+    color: var(--sb);
+    font-weight: lighter;
+    margin: 0;
+}
+#fdiv h1{
+    color: var(--outl);
+    font-size: 3rem;
+    font-weight: lighter;
+    margin: 10px;
+}
+
+
+/* INTROS */
+#intros{
+    display: none;    /* for now */
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+    margin: 4rem;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+#intros div{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-justify: auto;
+    padding: 1rem;
+    border: 1px solid var(--pc);
+    background-color: var(--pc);
+    transition: all 0.2s ease-in-out;
+    border-radius: 0.5rem;
+}
+#intros div:hover{
+    padding: 1.2rem;
+    border: 1px solid var(--outl);
+}
+#intros div img{
+    height: 4rem;
+    width: 4rem;
+}
+#intros div p{
+    font-size: 0.8rem;
+    color: var(--outl);
+}
+/* END FIRST DIVISION */
+
+/* SECOND DIVISION */
+#sdiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.7rem;
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-basis: 0;
+    justify-content: center;
+    max-width: 100%;
+    height: 100vh;
+    background-color: var(--sb);
+    margin: 0;
+    overflow: hidden;
+}
+#sdiv div{
+    width: 20rem;
+    height: 80%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.1rem;
+    transition: all 0.5s ease-in-out;
+}
+#sdiv div:hover{
+    height: 81%;
+}
+#sdiv div img{
+    width: 3rem;
+    height: 3rem;
+}
+#sdiv div p{
+    color: var(--outl);
+    margin-bottom: auto;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+/* END OF SECOND DIVISION */
+
+/* START OF THIRD DIVISION */
+#tdiv{
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+    background-color: var(--sil);
+}
+#tdiv div{
+    width: 40rem;
+    height: 80%;
+    margin: 0.2rem;
+    display: flex;
+    justify-content: center;
+    overflow-y: hidden;
+    margin: 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    border-radius: 0.5rem;
+    
+}
+.rup{
+        width: 100%;
+        margin: 0.5rem;
+        background-color: var(--trans);
+        backdrop-filter: blur(25px);
+        margin-top: auto;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        color: var(--sb);
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: all 1s ease-in-out;
+     }
+.rup.exp{
+    -webkit-line-clamp: unset;
+    height: 30%;
+}
+/* END OF THIRD DIVISION */
+
+/* FOURTH DIVISION */
+#ldiv{
+    max-width: 100%;
+    min-height: 80vh;
+    background-color: var(--pc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+#ldiv div{
+    width: 50%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--trans);
+    backdrop-filter: blur(10px);
+    margin: 0.2rem;
+}
+#ldiv div form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0.2rem;
+    border: solid 1px var(--outl);
+    border-radius: 0.5rem;
+    background-color: var(--trans);
+    backdrop-filter: blur(10px);
+}
+#ldiv div form input{
+    width: 80%;
+    height: 0.5rem;
+    margin: 0.3rem;
+    padding: 1rem;
+    display: flex;
+    text-align: center;
+    outline: none;
+    border: 1px solid var(--outl);
+    background-color: var(--trans);
+    color: var(--sc);
+}
+#ldiv div form input[type="submit"]{
+  width: 50%;
+  color: var(--outl);
+  padding: 0;
+  height: 2rem;
+  font-weight: bolder;
+  background-color: var(--outl);
+  color: var(--pc);
+  transition: all 0.2s ease-in-out;
+}
+#ldiv div form input[type="submit"]:hover{
+    border: solid 1px var(--outl);
+}
+#ldiv div form p{
+    color: var(--outl);
+    font-weight: bolder;
+}
+#ldiv div form textarea{
+    width: 85%;
+    height: 10rem;
+     display: flex;
+    text-align: center;
+    background-color: var(--trans);
+    outline: none;
+    border: 1px solid var(--outl);
+    color: var(--sc);
+}
+#ldiv h4{
+    color: var(--outl);
+    padding: 0.5rem;
+    border-radius: 4px;
+    border-bottom: solid var(--outl);
+    transition: all 0.5s ease-in-out;
+}
+#ldiv h4:hover{
+transform: translateY(-5px);
+}
+#responseMessage {
+    transition: opacity 0.5s ease;
+  }
+  
+
+#ldiv #socials{
+    width: 40%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+#ldiv #socials div{
+    width: 4rem;
+    height: 4.2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: solid 1px var(--outl);
+    transition: all 0.2s ease-in-out;
+}
+#ldiv #socials div:hover{
+    padding: 1.2rem;
+}
+#ldiv #socials div img{
+    width: 100%;
+    height: 100%;
+}
+/* END OF FOURTH DIVISION */
+/* START OF FOOTER */
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--pc);
+}
+footer p{
+    color: var(--sc);
+}
+/* END OF FOOTER */
+
+
+/* MOBILE SCREEN---------------------------------------------------------------------------- */
+@media (max-width: 768px){
+    #fdiv{
+        flex-direction: column;
+    }
+    #intros{
+        gap: 3rem;
+        margin-top: 5rem;
+    }
+    #intros div{
+        width: 30%;
+    }
+    #sdiv{
+            width: 100%;
+            overflow: auto;
+            flex-grow: 0;
+            flex-shrink: 0;
+            scroll-snap-type: x mandatory;
+             flex-shrink: 0;
+            flex-grow: 0;
+            flex-basis: 0;
+            overflow: auto;
+            justify-content: start;
+    }
+    #sdiv div{
+        scroll-snap-align: center;
+        min-width: 100%;
+        background-position: center;
+        background-size: cover;
+        border-radius: 0.5rem;
+    }
+    #tdiv{
+        flex-direction: column;
+    }
+    #tdiv div{
+        width: 90%;
+    }
+    #ldiv{
+        flex-direction: column;
+    }
+    #ldiv div{
+        width: 90%;
+    }
+    #ldiv #socials{
+        width: 90%;
+        gap: 2rem;
+    }
+     
+}
+
+/* FOR TABLETS------------------------------------------------------------------ */
+@media (min-width: 600px) and (max-width: 1024px){
+   #sdiv{
+            max-width: 100%;
+            overflow: auto;
+            flex-grow: 1;
+            flex-shrink: 1;
+            /* scroll-snap-type: x mandatory;
+             flex-shrink: 0;
+            flex-grow: 0;
+            flex-basis: 0; */
+            overflow: auto;
+            justify-content: start;
+    }
+    #sdiv div{
+        /* scroll-snap-align: center; */
+        width: 20rem;
+        background-position: center;
+        background-size: cover;
+        border-radius: 0.5rem;
+    }
+     
+    #tdiv{
+        flex-direction: column;
+    }
+    #tdiv div{
+        width: 90%;
+    }
+    #ldiv{
+        flex-direction: column;
+    }
+    #ldiv div{
+        width: 90%;
+    }
+    #ldiv #socials{
+        width: 90%;
+        gap: 2rem;
+    }
+}

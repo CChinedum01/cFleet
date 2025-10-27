@@ -1,0 +1,1762 @@
+:root{
+    --pc: #0A192F;
+    /* --sc: white; */
+    --sc: #F5F5F5;
+    --outlll: #B1F0F7;
+    --outl: #3acbdf;
+    --green: green; 
+    --trans: #00000000; 
+    --sil: silver;
+    --sb: #0A192F;
+    --red: #ef4444;
+}
+body{
+    top: 0;
+    margin: 0;
+    cursor: default;
+    font-family: 'Roboto';
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--sc);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Red Hat Display", Arial, sans-serif;
+    display: flex;
+    align-items: center;
+}
+/* START OF NAVIGATION */
+nav{
+    display: flex;
+    width: 100%;
+    height: 10%;
+    top: 0;
+    background-color: var(--sc);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    z-index: 10;
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+nav ul li{
+    list-style: none;
+    font-family: 'Roboto';
+    color: var(--outl);
+    font-size: 20px;
+}
+nav ul li a{
+    text-decoration: none;
+    color: var(--outl);
+}
+nav ul li img{
+    width: 2rem;
+    height: 2rem;
+}
+nav ul li:nth-child(1){
+margin-right: auto;
+}
+nav ul li:nth-child(2){
+ margin-left: auto;
+ margin-right: 0.5rem;
+ object-fit: cover;
+ padding: 0.5rem;
+border-radius: 100%;
+}
+nav ul li:nth-child(2) img{
+border-radius: 100%;
+border: solid 2px var(--pc);
+width: 2.5rem;
+height: 2.5rem;
+}
+
+/* MAIN DIVISION */
+#main{
+ width: 100%;
+ height: 90%;
+ background-color: var(--pc);
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+ align-items: center;
+ margin: 0;
+ bottom: 0;
+ position: fixed;
+overflow: hidden;
+
+}
+#main #navigator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 1;
+    flex-grow: 0;
+    height: 95%;
+    width: 5%;
+    background-color: var(--pc);
+    margin: 0.5rem;
+    border: 2px solid var(--sc);
+    border-radius: 0.5rem;
+    gap: 0;
+    transition: all 0.2s ease-in-out;
+    z-index: 999999;
+}
+#main #navigator  .icons p{
+  font-size: 0.5rem;
+   }
+#main #navigator:hover{
+width: 10%;
+}
+#main #navigator:hover .icons p{
+  font-size: 0.8rem;
+   }
+#main #display{
+    display: flex;
+    flex-direction: column; 
+    height: 95%;
+    width: 100%;
+    background-color: var(--sc);
+    margin: 0.5rem;
+    border: 2px solid var(--pc);
+    border-radius: 0.5rem;
+    z-index: 9999;
+}
+#main #navigator .icons{
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    flex-grow: 0;
+    align-items:  center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+    border: solid 2px var(--trans);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease-in-out;
+}
+#main #navigator .icons:hover{
+    border: solid 2px var(--sc);
+    border-radius: 0.5rem;
+}
+#main #navigator .icons span{
+    width: 2rem;
+    height: 2rem;
+}
+#main #navigator .icons p{
+    color: var(--outl);
+}
+#main #navigator .icons span img{
+    width: 100%;
+    height: 100%;
+}
+/* USER INFORMATION */
+#user{
+ display: none;
+}
+#user.active{
+    top: 0;
+    bottom: 0;
+    width: 20rem;
+    height: 100%;
+    margin: 0;
+    background-color: var(--sc);
+    border: solid 1px var(--pc);
+    position: fixed;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#user #close{
+    width: 1.5rem;
+    height: 1.5rem;
+    top: 2rem;
+    left: 2rem;
+    position: absolute;
+}
+#user #close img{
+    width: 100%;
+    height: 100%;
+}
+#user #f{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#user #f  p{
+  font-size: 1rem;
+  color: var(--pc);
+};
+#user #f #setting{
+    width: 4rem;
+    height: 4rem;
+}
+#user #f #editor{
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    transform: translate(2rem, -2rem);
+    background-color: var(--sc);
+    border-radius: 100%;
+}
+#user #f #setting img{
+    width: 100%;
+    height: 100%;
+    border: solid 1.5px var(--pc);
+    border-radius: 100%;
+}
+#user #f #editor img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+
+
+#termination{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    gap: 2rem;
+    bottom: 0;
+}
+#delete{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 1rem;
+}
+#delete button{
+    background-color: var(--red);
+    color: var(--sc);
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    border: solid 1px var(--red);
+    transition: all 0.2s ease-in-out;
+}
+#delete button:hover{
+   padding: 0.5rem 2rem;
+}
+
+#logout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logout button{
+    background-color: var(--outl);
+    color: var(--sc);
+    border: solid 1px var(--outl);
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    position: absolute;
+    transition: all 0.2s ease-in-out;
+}
+#logout button:hover{
+   padding: 0.5rem 2rem;
+}
+
+/* ACCOUT DELETION SCETION=================================================== */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+  background: #fff; padding: 20px; border-radius: 12px;
+  text-align: center; width: 90%; max-width: 400px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+button { margin: 5px; padding: 10px 20px; border: none; cursor: pointer; border-radius: 6px;background-color: var(--red); color: var(--sc);}
+#sendCode, #verifyCodeForm button { background-color: var(--red); color: #fff; }
+#cancelDelete { background-color: #6c757d; color: #fff; }
+
+
+#user #f  #reset_password{
+  color: var(--red);
+}
+
+
+/* FOR PROFILE SECTION */
+.profile-card { 
+  max-width: 520px; margin: 2rem auto; padding: 1rem; 
+  border: 1px solid #e5e7eb; border-radius: 12px; background:#fff;
+}
+.avatar-wrap { display:flex; justify-content:center; margin-bottom: 1rem; }
+.avatar {
+  width: 150px; height: 150px; border-radius: 50%;
+  object-fit: cover; border: 2px solid #ddd;
+}
+.btn {
+  display:inline-block; padding:.5rem 1rem; border-radius:8px; border:1px solid var(--outl);
+  background:#f9fafb; cursor:pointer; margin-right:.5rem; color:var(--pc);
+}
+#deletePhotoForm{
+    justify-self: center;
+}
+#avatarForm label{
+    text-align: center;
+    width: 7rem;
+    height: 2rem;
+    padding: 0rem;
+    font-size: 1rem;
+}
+.btn.primary { background:#3acbdf; color:#fff; border-color:#3acbdf; }
+.btn.danger  { background: var(--red); color:#fff; border-color:#ef4444; }
+.btn[disabled] { opacity:.5; cursor:not-allowed; }
+#profileMsg { margin-top: .75rem; color:#444; font-size:.9rem; }
+
+
+/* FOR USER MANAGEMENT SECTION ==========================================================================*/
+#user_management{
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    overflow: hidden;
+}
+#user_management #user_mgt_nav{
+    width: 12%;
+    max-height: 90%;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#user_management #user_mgt_nav span{
+    width: 30%;
+    height: 20%;
+    padding: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+}
+
+#user_management #user_mgt_nav span:hover{
+    border: solid 2px var(--outl);
+    border-radius: 10%;
+}
+/* #create_profile{
+    border: none;
+    background-color: rebeccapurple;
+}
+#create_profile:active{
+    border: solid 2px var(--outl);
+    background-color: #444;
+} */
+#user_management img{
+    width: 100%;
+    height: 100%;
+}
+
+#form{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px var(--outl);
+    border-radius: 0.5rem;
+    height: 98%;
+    min-width: 80%;
+    background-color: var(--sc);
+    gap: 2rem;
+    margin: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+#form div{
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    width: 95%;
+    background-color: var(--trans);
+    position: relative;
+    align-items: center;
+}
+#form div input{
+    width: 98%;
+    height: 100%;
+    margin: 0.3rem;
+    padding: 1rem;
+    padding-right: 4.2rem;
+    padding-left: 2rem;
+    display: flex;
+    text-align: center;
+    outline: none;
+    border: 1px solid var(--outl);
+    background-color: var(--trans);
+    color: var(--pc);
+    box-sizing: border-box;
+}
+#form input[type="submit"]{
+     width: 50%;
+    height: 10%;
+    margin: 0.3rem;
+    outline: none;
+    border: 1px solid var(--outl);
+    background-color: var(--pc);
+    color: var(--sc);
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+#form input[type="submit"]:hover{
+    height: 3.2rem;
+}
+#form div label{
+    position: absolute;
+    font-size: 0.8rem;
+    color: var(--pc);
+    align-self: flex-end;
+    background-color: var(--sc);
+}
+#form div span{
+    position: absolute;
+    height: 1rem;
+    width: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    z-index: 5;
+}
+#form div span img{
+    width: 100%;
+    height: 100%;
+}
+#form div .visibility{
+    position: absolute;
+    display: flex;
+    height: 1rem;
+    width: 1rem;
+    right: 0.2rem;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    padding: 2rem 1rem;
+}
+#form div .visibility img{
+     width: 100%;
+    height: 100%;
+}
+
+#form div .clear{
+    position: absolute;
+    display: flex;
+    height: 1rem;
+    width: 1rem;
+    right: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    padding: 2rem 3rem;
+     /* margin-left: 20rem; */
+}
+#form div .clear img{
+     width: 100%;
+    height: 100%;
+}
+
+#form p{
+    color: var(--pc);
+}
+#form #profiling_success{
+    color: var(--green);
+}
+#search_user{
+    display: none;
+    z-index: 10;
+    justify-self: center;
+    align-self: center;
+    top:1rem;
+    width: 98%;
+    height: 10%;
+    margin: 0.3rem;
+    padding: 1rem;
+    padding-right: 4.2rem;
+    padding-left: 2rem;
+    text-align: center;
+    outline: none;
+    border: 1px solid var(--outl);
+    background-color: var(--trans);
+    color: var(--pc);
+    box-sizing: border-box;
+}
+
+#signin{
+    color: var(--pc);
+    transition: all 0.1s ease-in-out;
+    text-decoration: none;
+}
+#signin:hover{
+    color: var(--outl);
+}
+
+/* CSS FOR REGISTERING NEW VEHICLES =============================*/
+#vehicle{
+     display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px var(--outl);
+    border-radius: 0.5rem;
+    height: 98%;
+    min-width: 80%;
+    background-color: var(--sc);
+    gap: 2rem;
+    margin: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+#vehicle div{
+     display: flex;
+    flex-direction: row;
+    height: 10%;
+    width: 95%;
+    background-color: var(--trans);
+    position: relative;
+    align-items: center;
+}
+#vehicle div input{
+     width: 98%;
+    height: 100%;
+    margin: 0.3rem;
+    padding: 1rem;
+    padding-right: 4.2rem;
+    padding-left: 2rem;
+    display: flex;
+    text-align: center;
+    outline: none;
+    border: 1px solid var(--outl);
+    background-color: var(--trans);
+    color: var(--pc);
+    box-sizing: border-box;
+}
+#vehicle div textarea{
+     width: 98%;
+    height: 150%;
+     display: flex;
+    text-align: center;
+    background-color: var(--trans);
+    outline: none;
+    border: 1px solid var(--outl);
+    color: var(--pc);
+}
+
+#vehicle input[type="submit"]{
+    width: 50%;
+    height: 3rem;
+    margin: 0.3rem;
+    outline: none;
+    border: 1px solid var(--outl);
+    background-color: var(--pc);
+    color: var(--sc);
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+#vehicle input[type="submit"]:hover{
+    height: 3.2rem;
+}
+#vehicle div label{
+    position: absolute;
+    font-size: 0.8rem;
+    color: var(--pc);
+    align-self: flex-end;
+    background-color: var(--sc);
+}
+#vehicle div span{
+    position: absolute;
+    height: 1rem;
+    width: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    z-index: 5;
+}
+#vehicle div span img{
+    width: 100%;
+    height: 100%;
+}
+#vehicle div .visibility{
+    position: absolute;
+    display: flex;
+    height: 1rem;
+    width: 1rem;
+    right: 0.2rem;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    padding: 2rem 1rem;
+}
+#vehicle div .visibility img{
+     width: 100%;
+    height: 100%;
+}
+
+#vehicle div .clear{
+    position: absolute;
+    display: flex;
+    height: 1rem;
+    width: 1rem;
+    right: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    padding: 2rem 3rem;
+     /* margin-left: 20rem; */
+}
+#vehicle div .clear img{
+     width: 100%;
+    height: 100%;
+}
+
+#vehicle p{
+    color: var(--pc);
+}
+/* #vehicle #vehicleMessage{
+    font-size: 10px;
+    z-index: 20;
+} */
+
+
+/* FOR SEARCH====================================== */
+/* === GLOBAL HIDDEN CLASS === */
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* === MODAL (profile edit popup) === */
+.modal {
+  position: fixed;
+  top: 10%; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; 
+  gap: 0;
+  align-items: center; 
+  justify-content: center;
+  z-index: 999;
+  overflow-y: scroll;
+
+}
+
+.modal-content {
+  background: var(--sc);
+  padding: 20px;
+  border-radius: 10px;
+  height: 100%;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: fixed;
+  
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* === SEARCH SECTION === */
+.search-section {
+  margin: 20px 0;
+  display: none;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Sticky input stays fixed at top of search-section */
+.search-section input {
+  padding: 10px;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.2s ease;
+  position: sticky;
+  top: 0;
+  background: var(--sc);
+  z-index: 10;
+}
+
+.search-section input:focus {
+  border-color: var(--outl);
+  box-shadow: 0 0 5px var(--outl);
+}
+
+/* === RESULT ITEM STYLING === */
+#results {
+  max-height: 400px;          /* defines scrollable height */
+  overflow-y: auto;           /* enable scroll */
+  overflow-x: hidden;
+  padding-right: 5px;         
+  padding-bottom: 150px;      /* space for 3 result items at bottom */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* visible scrollbar */
+#results::-webkit-scrollbar {
+  width: 8px;
+}
+#results::-webkit-scrollbar-thumb {
+  background-color: var(--sb);
+  border-radius: 4px;
+}
+#results {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb) transparent;
+}
+
+/* individual result items */
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--outl);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  background-color: var(--sc);
+  min-height: 60px; /* ensures uniform height for bottom padding calc */
+}
+
+.result-item:hover {
+  background: var(--outl);
+}
+
+/* ✅ Profile images inside search results */
+.search-section .result-item img {
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid var(--sc) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.result-item:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 0 6px var(--sb);
+}
+
+/* ✅ Text beside the image */
+.result-item div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.3;
+}
+
+.result-item strong {
+  font-size: 1rem;
+  color: var(--sb);
+}
+
+.result-item small {
+  color: var(--sb);
+  font-size: 0.85rem;
+}
+
+/* ✅ Profile card image (inside modal) */
+#profileModal img {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid var(--sc);
+  display: block;
+  margin: 10px auto;
+}
+
+#profileModal h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#profileModal label {
+  font-weight: 600;
+  display: block;
+  margin-top: 10px;
+  color: var(--sb);
+}
+
+#profileModal input,
+#profileModal textarea {
+  width: 100%;
+  border: 1px solid var(--sc);
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+#profileModal button {
+  background: var(--sb);
+  color: var(--sc);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-top: 15px;
+  cursor: pointer;
+  width: 30%;
+  align-self: center;
+  justify-self: center;
+  transition: background 0.2s ease;
+}
+
+#profileModal button:hover {
+  background: var(--outl);
+}
+#profileModal .delete-btn{
+  background-color: var(--red) !important;
+}
+
+
+/* CSS FOR OVERVIEW AREA--------------------------------------------------------------------------- */
+/* --- OVERVIEW SECTION --- */
+.overview-section {
+  display: none;
+  flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: var(--sc);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow-y: auto;           /* enables vertical scrolling */
+    overflow-x: hidden;
+    padding-right: 8px;
+    padding-top: 10px;
+    padding-bottom: 80px;       /* 👈 adds space so last item is visible */
+    border-top: 1px solid #ccc;
+    scroll-behavior: smooth;
+    scrollbar-width: 5px;
+    scrollbar-color: var(--sb) var(--sc);
+  }
+  .overview-section h2{
+    display: flex;
+    justify-self: center;
+    color: var(--sb);
+  }
+  
+  .toggle-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .toggle-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: var(--sb);
+    color: var(--sc);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .toggle-buttons button.active {
+    background: var(--outl);
+    font-weight: bold;
+  }
+  
+  .toggle-buttons button:hover {
+    opacity: 0.9;
+  }
+  
+  /* === SCROLLABLE OVERVIEW LIST === */
+  .overview-list {
+    max-height: 400px;          /* controls scroll area height */
+    overflow-y: auto;           /* enables vertical scrolling */
+    overflow-x: hidden;
+    padding-right: 8px;
+    padding-top: 10px;
+    padding-bottom: 80px;       /* 👈 adds space so last item is visible */
+    border-top: 1px solid #ccc;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sb) var(--sc);
+}
+
+  
+  
+  .overview-list::-webkit-scrollbar {
+    width: 10px;
+  }
+  .overview-list::-webkit-scrollbar-thumb {
+    background: var(--sb);
+    border-radius: 3px;
+  }
+  
+  /* Scrollable modal content */
+  .scrollable-modal {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  /* === FIX PROFILE IMAGE STYLING === */
+.result-item img,
+#profileContent img {
+  width: 60px;             /* size similar to your search section before */
+  height: 60px;
+  border-radius: 50%;       /* make it circular */
+  object-fit: cover;        /* prevent distortion */
+  border: 2px solid var(--sb);
+}
+/* this just for popup overview section, search section has its own ----------------------------------*/
+/* === OVERVIEW PROFILE MODAL (same style as search popup) === */
+#overviewProfileModal .modal-content {
+    background: var(--sc);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: fixed;
+    z-index: 9999;
+    overflow-y: auto; /* scrollable for smaller screens */
+    min-height: 100%; /* limit height */
+    margin-bottom: 20px;
+    overflow-y: scroll;
+  }
+  
+  /* Close button */
+  #overviewProfileModal .close {
+    position: absolute;
+    right: 10px;
+    top: 25px;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--sb);
+  }
+  
+  /* Profile image inside modal */
+  #overviewProfileModal img {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 2px solid var(--sc);
+    display: block;
+    margin: 10px auto;
+  }
+  
+  /* Headings */
+  #overviewProfileModal h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--sb);
+  }
+  
+  /* Labels and inputs */
+  #overviewProfileModal label {
+    font-weight: 600;
+    display: block;
+    margin-top: 10px;
+    color: var(--sb);
+  }
+  
+  #overviewProfileModal input,
+  #overviewProfileModal textarea {
+    width: 100%;
+    border: 1px solid var(--sc);
+    border-radius: 6px;
+    padding: 8px;
+    margin-top: 4px;
+    font-size: 0.95rem;
+  }
+  
+  /* Buttons */
+  #overviewProfileModal button {
+    background: var(--sb);
+    color: var(--sc);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    width: 40%;
+    transition: background 0.2s ease;
+  }
+  
+  #overviewProfileModal button:hover {
+    background: var(--outl);
+  }
+  
+  /* Delete button specifically */
+  #overviewProfileModal .delete-btn {
+    background: var(--red) !important;
+    color: #fff;
+  }
+  
+  #overviewProfileModal .delete-btn:hover {
+    background: #c9302c !important;
+  }
+  
+
+/* CSS FOR GGOGLE MAPS INTEGRATION===================================================== */
+
+/* layout */
+.fleet-section { margin: 20px 0; display: none; flex-direction: column;}
+.fleet-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+.fleet-header h2 { margin:0; color:var(--sb); }
+
+/* mobile toggle */
+.btn-toggle {
+  background:var(--outl); color: white; border:none; padding:6px 10px; border-radius:6px; cursor:pointer;
+  font-weight:600;
+}
+
+/* container */
+.fleet-body {
+  display:flex;
+  gap: 12px;
+  height: 68vh;             /* main map/list height */
+  min-height: 420px;
+}
+
+/* sidebar */
+.drivers-sidebar {
+  width: 280px;
+  background: var(--sc);
+  border-radius: 10px;
+  border: 1px solid rgba(10,25,47,0.06);
+  padding: 10px;
+  box-shadow: 0 6px 18px rgba(10,25,47,0.04);
+  transition: width 220ms ease, transform 180ms ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* hover expand: grow a bit to show more info */
+.drivers-sidebar:hover {
+  width: 340px;
+  transform: translateY(-2px);
+}
+
+/* header inside sidebar */
+.sidebar-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.count { background:var(--sb); color:var(--sc); padding:4px 8px; border-radius:10px; font-size:0.9rem; }
+
+/* list */
+.drivers-list { overflow-y:auto; padding-right:6px; gap:8px; display:flex; flex-direction:column; }
+
+/* driver item */
+.driver-item {
+  display:flex; align-items:center; gap:10px;
+  padding:8px; border-radius:8px; cursor:pointer;
+  border:1px solid rgba(10,25,47,0.04); background:white;
+  transition: background 160ms ease, transform 120ms ease;
+}
+.driver-item:hover { background: rgba(58,203,223,0.06); transform: translateX(4px); }
+
+/* avatar */
+.driver-avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--sb); flex-shrink:0; }
+
+/* info */
+.driver-meta { display:flex; flex-direction:column; min-width:0; }
+.driver-meta .name { font-weight:700; color:var(--pc); font-size:0.95rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.driver-meta .email { font-size:0.82rem; color:#666; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* badges */
+.badge { font-size:0.72rem; padding:3px 6px; border-radius:999px; color:white; margin-left:6px; }
+.badge-online { background:var(--green); }
+.badge-offline { background:#9e9e9e; }
+
+/* last seen small */
+.driver-last { font-size:0.75rem; color:#888; margin-top:4px; }
+
+/* map */
+.fleet-map { flex:1; border-radius:10px; overflow:hidden; min-height:300px; }
+
+/* modal */
+.modal { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.45); z-index:2000; }
+.modal.hidden { display:none; }
+.modal-card { background:var(--sc); border-radius:10px; width:92%; max-width:520px; padding:18px; position:relative; max-height:85vh; overflow:auto; }
+.modal-close { position:absolute; right:12px; top:10px; border:none; background:transparent; font-size:26px; cursor:pointer; color:var(--pc); }
+
+.modal-actions { margin-top: 14px; display: flex; gap: 10px; }
+.modal-actions button {
+  background: var(--sb);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.modal-actions button:hover {
+  background: var(--pc);
+}
+#driversToggleBtn{
+  display: none;
+}
+
+.close{  /* FOR CLOSING THE MODAL CARDS=========================================== */
+  margin-top: 10rem;
+  font-weight: bolder;
+}
+
+
+/* CSS FOR ROUTE OPTIMIZATION INTEGRATION===================================================== */
+/* Minimal styling — adapt to your theme */
+#routingSection{
+  display: none;
+  flex-direction: column;
+}
+  .route-panel { display:flex; flex-direction: row; flex-wrap:wrap; align-items:center;
+    justify-content: center;
+     width: 100%;
+     margin: 0;
+     gap: 7rem;
+     height: 20% ;}
+  .route-panel input[type="text"] { padding:0.5rem; width:90%; border-radius:8px; border:1px solid #ddd; }
+  .route-panel .small-btn { padding:8px 10px; border-radius:8px; border:none; background:#1976d2; color:#fff; cursor:pointer; }
+  .route-panel .small-btn.ghost { background:#fff; color:#333; border:1px solid #ddd; }
+  .suggestions { position:relative; width: 50%; }
+  .suggestions-list { position:absolute; left:0; right:0; background:#fff; border:1px solid #ddd; max-height:220px; overflow:auto; z-index:9999; border-radius:6px; }
+  .suggestions-list div { padding:8px; cursor:pointer; border-bottom:1px solid #f1f1f1; }
+  .suggestions-list div:hover { background:#f5f7fb; }
+  #routingMap { width:100%; height: 100vh; border-radius:8px; background:#eee; }
+  #route_opt_fsug{
+    background-color: var(--sc);
+    padding: 0.2rem;
+    height: 90%;
+    width: 30%; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 1rem;
+    gap: 2px;
+  }
+    #route_opt_fsug input{
+      width: 70%;
+    }
+  #route_opt_fsug_btns{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #route_opt_fsug label{
+   padding: 0.3rem;
+   font-weight: bolder;
+    }
+ #route_opt_ssug label{
+    padding: 0.3rem;
+   font-weight: bolder;
+ }
+  #route_opt_tsug{
+    background-color: var(--sc);
+    padding: 0.2rem;
+    height: 90%;
+    width: 10%; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 1rem;
+    gap: 2px;
+  }
+  #route_opt_tsug label{
+    padding: 0.3rem;
+   font-weight: bolder;
+ }
+
+
+ /* CSS FOR TRIP SCHEDULING SECTION============================================== */
+/* === Layout === */
+#ts_tripSchedulerWrap {
+  display: none;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 16px;
+  background: var(--sc);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+/* === Form Card === */
+#ts_tripForm.ts-card {
+  width: 360px;
+  max-width: 40vw;
+  min-width: 300px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(10, 25, 47, 0.08);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+#ts_tripForm .ts-title {
+  margin: 0 0 16px;
+  font-size: 20px;
+  color: var(--pc);
+  font-weight: 700;
+}
+
+/* === Input & Label === */
+.ts-label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #222;
+}
+
+.ts-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: #fff;
+  color: #111;
+  border-radius: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ts-input:focus {
+  outline: none;
+  border-color: var(--outl);
+  box-shadow: 0 0 0 2px rgba(58, 203, 223, 0.25);
+}
+
+/* === Suggestion Lists === */
+.ts-suggestionsWrap {
+  position: relative;
+}
+
+.ts-suggestionsList {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  max-height: 220px;
+  overflow: auto;
+  z-index: 60;
+  padding: 6px 0;
+  list-style: none;
+  margin: 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.ts-suggestionsList li.ts-suggestionItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #222;
+}
+
+.ts-suggestionsList li.ts-suggestionItem:hover {
+  background: #f0f8fa;
+}
+
+/* === Buttons === */
+.ts-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.ts-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--sb);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sc);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.ts-btn:hover {
+  background: var(--sc);
+  color: var(--sb);
+  transform: translateY(-1px);
+}
+
+.ts-btn.ts-ghost {
+  background: var(--sb);
+  color: var(--sc);
+}
+
+.ts-btn.ts-ghost:hover {
+  background: var(--sc);
+  color: var(--sb);
+}
+
+/* === Primary Actions === */
+.ts-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.ts-primaryBtn {
+  background: var(--pc);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.ts-primaryBtn:hover {
+  background: var(--sc);
+  color: var(--sb);
+}
+
+.ts-cancelBtn {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  color: var(--pc);
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.ts-cancelBtn:hover {
+  background: #f3f4f6;
+}
+
+/* === Driver Modal === */
+.ts-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 25, 47, 0.55);
+  z-index: 120;
+  transition: opacity 0.3s;
+}
+
+.ts-modal[aria-hidden="false"] {
+  display: flex;
+}
+
+.ts-modalContent {
+  background: #fff;
+  padding: 18px;
+  border-radius: 12px;
+  width: 420px;
+  max-width: 95%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.ts-driverList {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.ts-driverItem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.ts-driverItem:hover {
+  background: #f9fafb;
+}
+
+.ts-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--outl);
+  background: var(--sc) url('/Svgs/avatarsvg.png') center/cover no-repeat;
+}
+
+.ts-driverMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ts-driverName {
+  font-weight: 600;
+  color: var(--pc);
+}
+
+.ts-driverSub {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* === Map Section === */
+#ts_mapWrap {
+  flex: 1;
+  min-width: 320px;
+  max-width: calc(100% - 400px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  background: #eaeaea;
+}
+
+#ts_tripMap {
+  width: 100%;
+  height: 560px;
+}
+
+/* === Misc === */
+.ts-noData,
+.ts-loading {
+  padding: 10px;
+  color: #555;
+  text-align: center;
+}
+/* CSS FOR ADMIN TRIP HISTORY====================================== */
+.th-container {
+  padding: 1.5rem;
+}
+
+.th-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--pc);
+  margin-bottom: 1rem;
+}
+
+/* Filters */
+.th-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+.th-filters input, .th-filters select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  font-size: 14px;
+}
+.th-btn {
+  background: var(--pc);
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.th-btn:hover {
+  background: var(--outl);
+}
+
+/* Trip Cards */
+.th-trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.th-trip-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.th-trip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+.th-trip-header h4 {
+  color: var(--outl);
+  margin-bottom: 0.4rem;
+}
+.th-trip-body p {
+  margin: 0.3rem 0;
+  color: #333;
+}
+.th-empty, .th-loader {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+}
+
+/* Modal */
+.th-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.th-modal[aria-hidden="false"] {
+  visibility: visible;
+  opacity: 1;
+}
+.th-modalContent {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  position: relative;
+}
+.th-closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.th-modalTitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--outl);
+}
+.th-details p {
+  margin: 0.4rem 0;
+}
+
+
+
+  
+
+
+/* MOBILE DISPLAY */
+@media (max-width: 768px){
+#main #navigator{
+    flex-direction: row;
+    width: 95%;
+    height: 10%;
+    padding: 0.5rem 0;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    z-index: 999999;
+}
+#main #navigator:hover{
+width: 100%;
+}
+#main #navigator:hover .icons p{
+  font-size: 0.5rem;
+}
+#main #navigator .icons{
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+}
+#main #navigator .icons span{
+    height: 2rem;
+    width: 2rem;
+}
+#main #display{
+    position: fixed;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+}
+#display #user_management{
+    flex-direction: column;
+    gap: 1rem;
+}
+#display #user_management #user_mgt_nav{
+    flex-direction: row;
+    width: 100%;
+    height: 12%;
+    padding: 0.1rem;
+}
+#display #user_management #user_mgt_nav span{
+    padding: 1rem;
+    height: 2rem;
+    width: 2rem;
+}
+#display #user_management form{
+    width: 100%;
+    height: 70%;
+    border: none;
+}
+/* CSS FOR GGOGLE MAPS INTEGRATION===================================================== */
+.fleet-section {
+    height: 100vh;
+  }
+  
+  .mobile-only {
+    display: block !important;
+  }
+  
+  /* Sidebar hidden by default on mobile */
+  .drivers-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    max-width: 300px;
+    height: 100vh;
+    background: white;
+    z-index: 1001;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+  }
+  
+  .drivers-sidebar.open {
+    left: 0;
+  }
+  
+  .fleet-map {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .btn-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    background: var(--pc);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Overlay when sidebar is open */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+  
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  /* MINE============================== */
+  #driversToggleBtn{
+  display: block;
+  position: absolute;
+  margin-top: 2rem;
+  margin-left: 70%;
+}
+/* container */
+.fleet-section{
+  margin-top: 4rem;
+}
+.fleet-body {
+  display:flex;
+  height: 100vh;             /* main map/list height */
+}
+.drivers-sidebar { width:100%; height:50vh; display:none; 
+  align-self: center; justify-self: center;margin-top: 20%;} /* hidden by default on mobile */
+  .drivers-sidebar.open { display:flex; }
+
+
+
+
+  /* CSS FOR ROUTE OPTIMIZATION============================================= */
+  .route-panel{
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  margin-top: 1rem;
+  overflow: auto;
+}
+ #route_opt_fsug{
+  flex-direction: row;
+    gap: 0;
+ }
+   #route_opt_fsug_btns{
+    gap: 0;
+   }
+     #route_opt_tsug{
+     gap: 0;
+     }
+
+
+  /* CSS FOR TRIP SCHEDULING========================================= */
+  #ts_tripSchedulerWrap{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+  }
+  #ts_tripForm{
+    width: 100%;
+    margin: 0;
+    margin-top: 1rem;
+  }
+}
+
+
+
+
+

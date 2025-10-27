@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link rel="icon" type="image/png" href="/Svgs/sub3.png">
+        <link rel="stylesheet" href="/log.css">
+        <link rel="stylesheet" href="/shared.css">
+        <title>cFleet  Sign in | Sign up</title>
+    </head>
+
+    <body>
+
+        <section id="sign">
+            <section id="wel">
+         <img alt="logo" src="/Svgs/sub3.png">
+         <p id="header">cFleet.<br>Route Optimization at your fingertips.<br><br>..Sign In.. </p>
+            </section>
+
+
+
+         <form method="post" action="/login" id="log">
+
+             <div>
+                <span><img src="/Svgs/email.png" alt="icon"></span><input type="email" name="email" placeholder="email" required><label>Email</label>
+            </div>  
+             
+             <div>
+                <span><img src="/Svgs/password.png" alt="icon"></span><input type="password" name="password" placeholder="Input password" required><label>input password</label>
+                
+                <section class="clear"><img src="/Svgs/clear.png" alt="icon"></section>
+                <section class="visibility"><img class="eye" src="/Svgs/visible.png" alt="icon"></section>
+            </div>
+             
+            <!-- ADDING EJS -->
+             <% if(error){%>
+            <p style="color: red;" id="flashMessage"><%= error %></p>
+            <% }%>
+
+            <!-- ADDING EJS -->
+            <% if(success){%>
+                <p style="color: green;" id="flashMessage"><%= success %></p>
+                <% }%>
+            <p id="recovery"><a href="/forgot-password">Forgetton password?</a></p>
+
+             <input type="submit" name="signin" class="submit" value="Sign In">
+                   
+             <p>Don’t have an account? <a id="signup" href="/register">Sign Up</a></p>
+
+         </form>
+
+
+        </section>
+  
+        <!-- SHARED -->
+        <section id="loader">
+             <div>
+                <img alt="loader" src="/Svgs/sub3.png">
+             </div>
+        </section>
+
+        <!-- <section id="success">
+            <p>Registration Successful</p>
+        </section> -->
+        <!-- END OF SHARED -->
+        
+
+        <script>
+            // Auto-hide messages after 4 seconds with a fade-out animation
+            const flashMsg = document.getElementById("flashMessage");
+            if (flashMsg) {
+              setTimeout(() => {
+                flashMsg.style.transition = "opacity 0.6s ease";
+                flashMsg.style.opacity = "0";
+                setTimeout(() => flashMsg.remove(), 600); // remove after fade-out
+              }, 3000);
+            }
+          </script>
+        <script src="./log.js"></script>
+        <script src="./shared.js"></script>
+    </body>
+</html>

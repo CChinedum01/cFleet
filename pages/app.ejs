@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>cFleet App</title>
+    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="icon" type="image/png" href="/Svgs/sub3.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Audiowide&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Audiowide&family=Onest:wght@100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Audiowide&family=Onest:wght@100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+
+
+</head>
+
+        <body>
+         <!-- NAVIGATION BAR -->
+    <nav>               
+        <ul>
+            <li><img oncontextmenu="return false" alt="logo" src="/Svgs/sub3.png"/></li>
+            <li><img id="menu" oncontextmenu="return false" alt="avatar" src="<%= (user && user.profile_image) ? user.profile_image : '/Svgs/avatarsvg.png' %>"/></li>
+        </ul>
+    </nav>
+   <!-- END OF  NAVIGATION BAR -->
+
+
+   <!-- MAIN DIVISION -->
+    <section id="main">
+        <section id="navigator">
+        <div class="icons" id="optimize"><span><img alt="icon" src="/Svgs/optimise.png"></span><p>Optimize</p></div>
+        <% if(user.role == "admin"){%>
+        <div class="icons" id="track"><span><img alt="icon" src="/Svgs/sub4.png"></span><p>Track</p></div>
+        <% }%>
+        <% if(user.role == "admin"){%>
+        <div class="icons" id="new"><span><img alt="icon" src="/Svgs/profileuser.png"></span><p>Management</p></div>
+        <% }%>
+        <% if(user.role == "admin"){%>
+        <div class="icons" id="overview"><span><img alt="icon" src="/Svgs/sub2.png"></span><p>Overview</p></div>
+        <% }%>
+        <!-- <% if(user.role == "admin"){%>
+        <div class="icons" id="scheduling"><span><img alt="icon" src="/Svgs/sub2.png"></span><p>Scheduling</p></div>
+        <% }%> SUSPENDED DUE TO TIME-->
+
+        <!-- <% if(user.role == "driver"){%>
+        <div class="icons" id="Report"><span><img alt="icon" src="/Svgs/sub3.png"></span><p>Schedules</p></div>
+        <% }%>  SUSPENDED DUE TO TIME-->
+        </section>
+
+        <!-- DISPLAY AREA------------------------------------------------------------------------------------ -->
+
+        <section id="display">
+        
+
+            <section id="user_management">
+             <diV id="user_mgt_nav">
+                <span id="create_profile"><img alt="icon" src="/Svgs/add_user.png"></span>
+                <span id="register_vehicle"><img alt="icon" src="/Svgs/van.png"></span>
+                <span id="searchbtn"><img alt="icon" src="/Svgs/search_user.png"></span>
+             </diV>
+
+             <!-- FORM FOR CREATING PROFILE ===================-->
+             <form action="/admin/driver/create" method="post" id="form">
+             <div><span><img src="/Svgs/avatarsvg.png" alt="icon"></span><input type="text" name="fullname" placeholder="fullname" required><label>Fullname</label></div>
+
+             <div>
+                <span><img src="/Svgs/email.png" alt="icon"></span><input type="text" name="email" placeholder="email" required><label>Email</label>
+            </div>  
+             
+             <div>
+                <span><img src="/Svgs/password.png" alt="icon"></span><input id="pw" type="password" name="password" placeholder="Create password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\w).{8,}" title="Password must be atlaest 8 characters long, include atleast one; uppercase,lowercase, and special character." required><label>create password</label>
+                <section class="clear"><img src="/Svgs/clear.png" alt="icon"></section>
+                <section class="visibility"><img class="eye" src="/Svgs/visible.png" alt="icon"></section>
+            </div>
+
+             <div>
+                <span><img src="/Svgs/password.png" alt="icon"></span><input id="cpw" type="password" name="cpassword" placeholder="Confirm password" required><label>confirm password</label>
+                <section class="clear"><img src="/Svgs/clear.png" alt="icon"></section>
+                <section class="visibility"><img class="eye" src="/Svgs/visible.png" alt="icon"></section>
+            </div>
+
+
+
+             <input type="submit" name="signup" class="submit" id="dr_reg_btn" value="Create Profile">
+
+             <p id="loadingText" style="display:none; color:#444444;">Creating profile...</p>
+
+<div id="formMessage" style="margin-top:10px; color: green; font-weight: bold;"></div>
+            
+                     
+            </form>
+
+
+            <!-- FORM FOR REGISTERING VEHICLES ===================-->
+             <form action="/admin/vehicle/create" method="post" id="vehicle">
+             <div>
+    <input list="productList" name="product" placeholder="Product (e.g., Toyota)" required>
+    <label>Product</label>
+    <datalist id="productList">
+      <option value="Toyota">
+      <option value="Honda">
+      <option value="Mercedes-Benz">
+      <option value="Nissan">
+      <option value="Ford">
+      <option value="Volkswagen">
+      <option value="BMW">
+      <option value="Kia">
+      <option value="Hyundai">
+      <option value="Peugeot">
+      <option value="Chevrolet">
+      <option value="Mitsubishi">
+      <option value="Volvo">
+      <option value="Mazda">
+      <option value="Jeep">
+      <option value="Renault">
+      <option value="Suzuki">
+      <option value="Isuzu">
+      <option value="Lexus">
+      <option value="Land Rover">
+    </datalist>
+  </div>
+
+
+             <div>
+            <input type="text" name="model"  placeholder="eg.,Camry" required><label>Model</label>
+            </div>
+
+            <div>
+            <input type="text" name="registration_number"  placeholder="eg.," required><label>Reg</label>
+            </div>
+            
+            <div>
+            <textarea type="text" name="description"  placeholder="description" required></textarea><label></label>
+            </div>
+
+
+
+             <input type="submit" name="signup" class="submit" id="reg_vehicle_btn" value="Register Vehicle">
+
+             <p id="loadingTextV" style="display:none; color:#444444;">Registering Vehicle...</p>
+
+<div id="vehicleMessage" style=" color: green; font-weight: bold;"></div>
+            
+                     
+            </form>
+
+            <!-- FORM FOR SEARCH AREA ========================-->
+             <!-- <input type="search" id="search_user" class="search-input" placeholder="Type to search drivers or vehicles..."> -->
+             <!-- 🔍 SEARCH SECTION START -->
+<!-- 🔍 SEARCH SECTION START -->
+<div class="search-section" id="search-section">
+  <h2>🔍 Search Drivers or Vehicles</h2>
+
+  <!-- Fixed Search Input -->
+  <div class="search-bar-container">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Type to search drivers or vehicles..."
+    />
+    <div id="loadingSpinner" class="hidden" style="margin-top:10px; color:gray;">
+      Searching...
+    </div>
+  </div>
+
+  <!-- ✅ Scrollable container for search results -->
+  <div id="results" class="results-scrollable"></div>
+</div>
+
+<!-- 🔲 PROFILE MODAL -->
+<div id="profileModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <div id="profileContent" class="modal-scrollable"></div>
+  </div>
+</div>
+<!-- 🔍 SEARCH SECTION END ------------------------>
+
+            </section>
+
+
+            <!-- OVERVIEW AREA------------------------------------------------------------------>
+<!-- 🧭 ADMIN OVERVIEW SECTION -->
+<section class="overview-section" id="overview-section">
+  <h2>Admin Repository Overview</h2>
+
+  <!-- Toggle Buttons -->
+  <div class="toggle-buttons">
+    <button id="viewDriversBtn" class="active">👤 Drivers (0)</button>
+    <button id="viewVehiclesBtn">🚗 Vehicles (0)</button>
+  </div>
+
+  <!-- Scrollable List -->
+  <div id="overviewList" class="overview-list">
+    <p>Loading data...</p>
+  </div>
+</div>
+
+<!-- 🧾 PROFILE MODAL (shared with search) -->
+<div id="overviewProfileModal" class="modal hidden">
+  <div class="modal-content scrollable-modal">
+    <span id="closeOverviewModal" class="close">&times;</span>
+    <div id="overviewProfileContent"></div>
+  </div>
+</div>
+</section>
+<!-- END OF OVERVIEW AREA ---------------------------------------------------------->
+
+
+<!--  MAP INTEGRATION==================================================== -->
+<section class="fleet-section" id="tracking-section">
+  <div class="fleet-header">
+    <h2>Fleet Map</h2>
+    <button id="driversToggleBtn" class="btn-toggle" aria-expanded="false">Drivers ▾</button>
+  </div>
+
+  <div class="fleet-body">
+    <aside id="driversSidebar" class="drivers-sidebar" aria-hidden="false">
+      <div class="sidebar-head">
+        <strong>Drivers</strong>
+        <span id="driversCount" class="count">0</span>
+      </div>
+      <div id="driversList" class="drivers-list">
+        <!-- <p class="muted">Loading drivers…</p> -->
+      </div>
+    </aside>
+
+    <div id="fleetMap" class="fleet-map" aria-label="Fleet Map"></div>
+  </div>
+
+
+
+
+<!-- Driver profile modal -->
+<div id="fleetDriverModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-card scrollable-modal">
+    <button id="closeFleetModal" class="modal-close" aria-label="Close">&times;</button>
+    <div id="fleetDriverContent"></div>
+  </div>
+</div>
+
+
+</section>
+
+
+<!-- END OF  MAP INTEGRATION====================================================================== -->
+
+
+
+
+
+
+
+<!-- ROUTE OPTIMIZATION SECTION============================================================================== -->
+
+
+<section id="routingSection" class="routingSection">
+  <div class="route-panel">
+    <div id="route_opt_fsug" class="suggestions">
+      <label>Start</label>
+      <input id="startInput" type="text" placeholder="Enter start (or pick on map / use my location)">
+      <div id="startSuggestions" class="suggestions-list" style="display:none"></div>
+      <div id="route_opt_fsug_btns" >
+        <button id="useMyLocationBtn" class="small-btn">Use my location</button>
+        <button id="pickStartBtn" class="small-btn ghost" data-pick="start">Pick from map</button>
+        <button id="startTrackingBtn" class="small-btn ghost">Start tracking</button>
+        <button id="stopTrackingBtn" class="small-btn ghost" disabled>Stop tracking</button>
+      </div>
+    </div>
+
+    <div id="route_opt_fsug" style="display:flex;flex-direction:column;max-width:320px" class="suggestions">
+      <label style="margin-bottom:6px">Destination</label>
+      <input id="endInput" type="text" placeholder="Enter destination (or pick on map)">
+      <div id="endSuggestions" class="suggestions-list" style="display:none"></div>
+      <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="pickEndBtn" class="small-btn ghost" data-pick="end">Pick from map</button>
+      </div>
+    </div>
+
+    <div  id="route_opt_tsug">
+      <label>Mode</label>
+      <select id="modeSelect" style="padding:8px;border-radius:8px;border:1px solid #ddd">
+        <option value="driving-car">Driving</option>
+        <option value="cycling-regular">Cycling</option>
+        <option value="foot-walking">Walking</option>
+      </select>
+
+      <button id="routeBtn" class="small-btn" style="margin-top:8px">Show route</button>
+      <button id="clearBtn" class="small-btn ghost" style="margin-top:4px">Clear</button>
+    </div>
+  </div>
+
+  <div id="routingMap"></div>
+</section>
+
+ <!-- END OF ROUTE OPTIMIZATION SECTION========================================================================= -->
+
+
+
+
+<!-- ADMIN TRIP SCHEDULING SECTION============================================================== -->
+
+
+<!-- ================= TRIP SCHEDULING SECTION =========== SUSPENDED DUE TO TIME====== -->
+<!-- TRIP SCHEDULER (namespaced with ts-) -->
+<div id="ts_tripSchedulerWrap">
+  <div id="ts_tripForm" class="ts-card">
+    <h3 class="ts-title">Schedule a Trip   <span>     |      History</span></h3> 
+
+    <label class="ts-label">Starting point</label>
+    <div class="ts-suggestionsWrap">
+      <input id="ts_startInput" type="text" placeholder="Enter or pick on map">
+      <ul id="ts_startSuggestions" class="ts-suggestionsList" hidden></ul>
+    </div>
+    <div class="ts-row">
+      <button id="ts_useMyLocationBtn" class="ts-btn">Use my location</button>
+      <button id="ts_pickStartBtn" class="ts-btn ts-ghost" data-pick="start">Pick from map</button>
+    </div>
+
+    <label class="ts-label">Destination</label>
+    <div class="ts-suggestionsWrap">
+      <input id="ts_endInput" type="text" placeholder="Enter or pick on map">
+      <ul id="ts_endSuggestions" class="ts-suggestionsList" hidden></ul>
+    </div>
+    <div class="ts-row">
+      <button id="ts_pickEndBtn" class="ts-btn ts-ghost" data-pick="end">Pick from map</button>
+    </div>
+
+    <label class="ts-label">Assign driver</label>
+    <div class="ts-driverRow">
+      <input id="ts_driverInput" readonly placeholder="Choose driver">
+      <button id="ts_selectDriverBtn" class="ts-btn">Choose Driver</button>
+    </div>
+
+    <div class="ts-actions">
+      <button id="ts_assignTripBtn" class="ts-primaryBtn">Assign Trip</button>
+      <button id="ts_clearBtn" class="ts-ghost">Clear</button>
+    </div>
+  </div>
+
+  <div id="ts_mapWrap">
+    <div id="ts_tripMap"></div>
+  </div>
+
+  <!-- Driver modal (namespaced) -->
+  <div id="ts_driverModal" class="ts-modal" aria-hidden="true">
+    <div class="ts-modalContent">
+      <h4>Drivers</h4>
+      <ul id="ts_driverList" class="ts-driverList"></ul>
+      <div style="text-align:right;margin-top:10px">
+        <button id="ts_closeDriverModal" class="ts-btn ts-ghost">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ADMIN TRIP HISTORY SECTION===============================SUSPENDED DUE TO TIME= -->
+
+
+
+<!-- END OF ADMIN TRIP SCHEDULING SECTION ================================================= -->
+
+
+
+
+
+
+        </section>
+<!-- END OF DISPLAY AREA------------------------------------------------------------------------------ -->
+
+        
+    </section>
+   <!-- END OF MAIN DIVISION -->
+
+   <!-- USER DETAILS -->
+    <section id="user">
+
+        <span id="close"><img alt="clear" src="/Svgs/clear.png"></span>
+        <div id="f">
+        <!-- <span id="setting"><img alt="avatar" src="/Svgs/avatarsvg.png"></span>
+        <span id="editor"><img alt="editor" src="/Svgs/pen.png"></span> -->
+
+        <!-- Profile Card -->
+<section class="profile-card">
+
+  <!-- Current avatar (falls back to default) -->
+  <div class="avatar-wrap">
+    <img
+      id="avatarPreview"
+      src="<%= (user && user.profile_image) ? user.profile_image : '/Svgs/avatarsvg.png' %>"
+      alt="Profile picture"
+      class="avatar"
+      onerror="this.src='/images/default-avatar.png'"
+    />
+  </div>
+
+  <!-- Upload/replace form -->
+  <form id="avatarForm" action="/profile/photo" method="POST" enctype="multipart/form-data">
+    <!-- single input with camera hint on mobile -->
+    <label for="avatarInput" class="btn">Choose photo</label>
+    <input
+      id="avatarInput"
+      type="file"
+      name="avatar"
+      accept="image/*"
+      capture="environment"     
+      hidden /> <!-- hints the camera on mobile, users can still pick from library -->
+    
+
+    <button type="submit" class="btn primary" id="savePhotoBtn" disabled>Save photo</button>
+  </form>
+
+  <!-- Delete photo -->
+  <form id="deletePhotoForm" action="/profile/photo/delete" method="POST" style="margin-top:.5rem;">
+    <button type="submit" class="btn danger"
+      <% if (!(user && user.profile_image)) { %> disabled <% } %>>
+      Delete photo
+    </button>
+  </form>
+
+  <!-- messages -->
+  <p id="profileMsg"><%= typeof flash !== 'undefined' ? flash : '' %></p>
+</section>
+
+<a  id="reset_password" href="/forgot-password">Reset Password</a>
+
+        <p id="umail"><%= user.email %></p>
+        <!-- RESET========================================== -->
+        </div>
+
+
+
+
+        <section id="termination">
+         <!-- DELETE ACCOUNT============================= -->
+         <!-- DELETE ACCOUNT (Admin Only) -->
+<% if (user.role === "admin") { %>
+  <button id="deleteBtn">Delete Account</button>
+  <% } %>
+
+  <!-- Step 1: Confirm Modal -->
+  <div id="confirmModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Confirm Account Deletion</h3>
+      <p>
+        Deleting your account will permanently remove your profile and all drivers
+        under your supervision. This action cannot be undone.
+      </p>
+      <button id="cancelDelete">Cancel</button>
+      <button id="sendCode">Send Verification Code</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Enter Code Modal -->
+  <div id="codeModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Email Verification</h3>
+      <p>Enter the 6-digit code sent to your email to confirm account deletion.</p>
+      <form id="verifyCodeForm">
+        <input type="text" id="verifyCodeInput" maxlength="6" placeholder="Enter code" required />
+        <button type="submit">Confirm Deletion</button>
+      </form>
+    </div>
+  </div>
+
+
+        <!-- LOGOUT========================================== -->
+        <form  id="logout" method="get" action="/logout">
+        <button type="submit">Log Out</button>
+        </form>
+        </section>
+         
+
+
+    </section>
+   <!-- END OF USER DETAILS -->
+            
+<!-- SCRIPTSSSSSSSSSSSSSSSSSSSSS================================================================= -->
+
+<!-- SCRIPT FOR ACCOUNT DELETIOM================================= -->
+<script>
+  const deleteBtn = document.getElementById("deleteBtn");
+  const confirmModal = document.getElementById("confirmModal");
+  const codeModal = document.getElementById("codeModal");
+  const sendCodeBtn = document.getElementById("sendCode");
+  const cancelDelete = document.getElementById("cancelDelete");
+  const verifyForm = document.getElementById("verifyCodeForm");
+
+  deleteBtn.addEventListener("click", () => {
+    confirmModal.style.display = "flex";
+  });
+
+  cancelDelete.addEventListener("click", () => {
+    confirmModal.style.display = "none";
+  });
+
+  sendCodeBtn.addEventListener("click", async () => {
+    const res = await fetch("/account/delete/send-code", { method: "POST" });
+    const data = await res.json();
+    if (data.success) {
+      alert("Verification code sent to your email.");
+      confirmModal.style.display = "none";
+      codeModal.style.display = "flex";
+    } else {
+      alert(data.message);
+    }
+  });
+
+  verifyForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const code = document.getElementById("verifyCodeInput").value.trim();
+    const res = await fetch("/account/delete/confirm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      alert("Account deleted successfully!");
+      window.location.href = "/";
+    } else {
+      alert(data.message);
+    }
+  });
+</script>
+
+
+   <!-- FOR PROFILE SECTION -->
+<script>
+  (function () {
+    const fileInput = document.getElementById('avatarInput');
+    const preview   = document.getElementById('avatarPreview');
+    const saveBtn   = document.getElementById('savePhotoBtn');
+
+    if (!fileInput) return;
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (file) {
+        // live preview
+        preview.src = URL.createObjectURL(file);
+        saveBtn.disabled = false;
+      } else {
+        saveBtn.disabled = true;
+      }
+    });
+  })();
+
+
+//   SCRIPT FOR CREATING NEW USER
+var form = document.getElementById("form");
+form.addEventListener("submit", async function (e) {
+  e.preventDefault(); // prevent page reload
+
+  const loadingText = document.getElementById("loadingText");
+  loadingText.style.display = "block"; // show message immediately
+
+  const formData = new FormData(this);
+
+  const response = await fetch("/admin/driver/create", {
+    method: "POST",
+    body: formData,
+  });
+
+  const result = await response.json(); // get JSON from backend
+
+  // hide loading after response
+  loadingText.style.display = "none";
+
+  // show message in div
+  const msgBox = document.getElementById("formMessage");
+  msgBox.innerText = result.message;
+  msgBox.style.color = result.success ? "green" : "red";
+
+  var driver_reg_btn = document.getElementById("dr_reg_btn");
+
+  if (result.success) this.reset();
+  driver_reg_btn.value = "Successful";
+
+  setTimeout(() => {
+    msgBox.innerText = "";
+    driver_reg_btn.value = "Create Profile";
+  }, 10000);
+});
+
+
+  
+
+  //   SCRIPT FOR ADDING NEW VEHICLE
+
+document.getElementById("vehicle").addEventListener("submit", async function(e) {
+    e.preventDefault(); // prevent page reload
+
+    const formData = new FormData(this);
+    const loadingTextV = document.getElementById("loadingTextV");
+  loadingTextV.style.display = "block"; // show message immediately
+
+    const response = await fetch("/admin/vehicle/create", {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.json(); // get JSON from backend
+    loadingTextV.style.display = "none"
+
+    // show message in div
+    const msgBox = document.getElementById("vehicleMessage");
+    msgBox.innerText = result.message;
+
+    var reg_vehicle_btn = document.getElementById('reg_vehicle_btn');
+   
+
+
+
+  msgBox.innerText = result.message;
+  msgBox.style.color = result.success ? "green" : "red";
+
+  if (result.success) {
+  this.reset();
+  reg_vehicle_btn.value = "✅ " + (result.message || "Registration Successful");
+} else {
+  reg_vehicle_btn.value = "❌ " + (result.message || "Registration Failed");
+}
+
+setTimeout(() => {
+  msgBox.innerText = "";
+  reg_vehicle_btn.value = "Register Vehicle";
+}, 3000);
+
+
+    }
+  );
+
+
+  // SCRIPT FOR SEARCH =========================================================================
+  const searchInput = document.getElementById("searchInput");
+const resultsDiv = document.getElementById("results");
+const spinner = document.getElementById("loadingSpinner");
+const modal = document.getElementById("profileModal");
+const profileContent = document.getElementById("profileContent");
+const closeModal = document.getElementById("closeModal");
+
+let typingTimer;
+const debounceDelay = 400;
+
+closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+
+// 🔍 SEARCH
+searchInput.addEventListener("input", () => {
+  clearTimeout(typingTimer);
+  const query = searchInput.value.trim();
+
+  if (query.length === 0) {
+    resultsDiv.innerHTML = "";
+    spinner.classList.add("hidden");
+    return;
+  }
+
+  spinner.classList.remove("hidden");
+
+  typingTimer = setTimeout(async () => {
+    try {
+      const res = await fetch(`/admin/search?q=${encodeURIComponent(query)}`);
+      const result = await res.json();
+      spinner.classList.add("hidden");
+      resultsDiv.innerHTML = "";
+
+      if (!result.success) {
+        resultsDiv.innerHTML = `<p style="color:red;">${result.message}</p>`;
+        return;
+      }
+
+      // === Drivers ===
+      if (result.drivers?.length > 0) {
+        const driverSection = document.createElement("div");
+        driverSection.innerHTML =
+          `<h3>👤 Matching Drivers</h3>` +
+          result.drivers
+            .map(
+              (d) => `
+              <div class="result-item"
+                   onclick="showProfileCard('driver', ${JSON.stringify(d).replace(/"/g, '&quot;')})">
+                <img src="${d.profile_image || '/Svgs/avatarsvg.png'}" alt="Profile">
+                <div>
+                  <strong>${d.fullname}</strong><br>
+                  <small>${d.email}</small>
+                </div>
+              </div>`
+            )
+            .join("");
+        resultsDiv.appendChild(driverSection);
+      }
+
+      // === Vehicles ===
+      if (result.vehicles?.length > 0) {
+        const vehicleSection = document.createElement("div");
+        vehicleSection.innerHTML =
+          `<h3>🚘 Matching Vehicles</h3>` +
+          result.vehicles
+            .map(
+              (v) => `
+              <div class="result-item"
+                   onclick="showProfileCard('vehicle', ${JSON.stringify(v).replace(/"/g, '&quot;')})">
+                <div>
+                  <strong>${v.product} ${v.model}</strong><br>
+                  <small>Reg No: ${v.registration_number}</small>
+                </div>
+              </div>`
+            )
+            .join("");
+        resultsDiv.appendChild(vehicleSection);
+      }
+
+      if (
+        (!result.drivers || !result.drivers.length) &&
+        (!result.vehicles || !result.vehicles.length)
+      ) {
+        resultsDiv.innerHTML = "<p>No matches found.</p>";
+      }
+    } catch (err) {
+      spinner.classList.add("hidden");
+      resultsDiv.innerHTML = "<p style='color:red;'>Error performing search.</p>";
+      console.error(err);
+    }
+  }, debounceDelay);
+});
+
+// 🧾 MODAL DETAILS + EDIT + DELETE
+function showProfileCard(type, item) {
+  modal.classList.remove("hidden");
+
+  if (type === "driver") {
+    profileContent.innerHTML = `
+      <h3>👤 Edit Driver</h3>
+      <img src="${item.profile_image || '/Svgs/avatarsvg.png'}" width="80" height="80" style="border-radius:50%;"><br>
+      <label>Full Name:</label>
+      <input type="text" id="editFullname" value="${item.fullname}" />
+      <label>Email:</label>
+      <input type="text" id="editEmail" value="${item.email}" /><br>
+
+      <div class="button-group">
+        <button class="save-btn" onclick="saveChanges('driver', '${item.id}')">Save</button>
+        <button class="delete-btn" onclick="deleteItem('driver', '${item.id}')">Delete</button>
+      </div>
+    `;
+  } else {
+    profileContent.innerHTML = `
+      <h3>🚘 Edit Vehicle</h3>
+      <label>Product:</label>
+      <input type="text" id="editProduct" value="${item.product}" />
+      <label>Model:</label>
+      <input type="text" id="editModel" value="${item.model}" />
+      <label>Registration Number:</label>
+      <input type="text" id="editReg" value="${item.registration_number}" />
+      <label>Description:</label>
+      <textarea id="editDesc">${item.description || ""}</textarea>
+
+      <div class="button-group">
+        <button class="save-btn" onclick="saveChanges('vehicle', '${item.id}')">Save</button>
+        <button class="delete-btn" onclick="deleteItem('vehicle', '${item.id}')">Delete</button>
+      </div>
+    `;
+  }
+}
+
+// 💾 SAVE CHANGES
+async function saveChanges(type, id) {
+  let payload = {};
+
+  if (type === "driver") {
+    payload = {
+      fullname: document.getElementById("editFullname").value,
+      email: document.getElementById("editEmail").value,
+    };
+  } else {
+    payload = {
+      product: document.getElementById("editProduct").value,
+      model: document.getElementById("editModel").value,
+      registration_number: document.getElementById("editReg").value,
+      description: document.getElementById("editDesc").value,
+    };
+  }
+
+  const res = await fetch(`/admin/update/${type}/${id}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await res.json();
+  alert(result.message || "Update complete!");
+  if (result.success) modal.classList.add("hidden");
+}
+
+// ❌ DELETE ITEM
+async function deleteItem(type, id) {
+  const confirmDelete = confirm(`Are you sure you want to delete this ${type}?`);
+  if (!confirmDelete) return;
+
+  const res = await fetch(`/admin/delete/${type}/${id}`, {
+    method: "DELETE",
+  });
+
+  const result = await res.json();
+  alert(result.message || "Item deleted!");
+  if (result.success) {
+    modal.classList.add("hidden");
+    searchInput.dispatchEvent(new Event("input")); // refresh results
+  }
+}
+
+
+// SCRIPT FOR OVERVIEW AREA--------------------------------------------------------------------------------
+const viewDriversBtn = document.getElementById("viewDriversBtn");
+const viewVehiclesBtn = document.getElementById("viewVehiclesBtn");
+const overviewList = document.getElementById("overviewList");
+
+// --- Load Overview Data ---
+async function loadOverview(type = "drivers") {
+  overviewList.innerHTML = "<p>Loading...</p>";
+
+  try {
+    const res = await fetch(`/admin/overview/${type}`);
+    const result = await res.json();
+
+    if (!result.success) {
+      overviewList.innerHTML = `<p style="color:red;">${result.message}</p>`;
+      return;
+    }
+
+    const total = result.data.length;
+    if (type === "drivers") {
+      viewDriversBtn.textContent = `👤 Drivers (${total})`;
+      viewVehiclesBtn.textContent = `🚘 Vehicles (${(window.vehicleCount || 0)})`;
+      window.driverCount = total;
+    } else {
+      viewVehiclesBtn.textContent = `🚘 Vehicles (${total})`;
+      viewDriversBtn.textContent = `👤 Drivers (${(window.driverCount || 0)})`;
+      window.vehicleCount = total;
+    }
+
+    if (!result.data.length) {
+      overviewList.innerHTML = "<p>No records found.</p>";
+      return;
+    }
+
+    overviewList.innerHTML = result.data.map((item) => {
+      if (type === "drivers") {
+        return `
+          <div class="result-item" 
+               onclick='showOverviewProfile("driver", ${JSON.stringify(item).replace(/"/g, "&quot;")})'>
+            <img src="${item.profile_image || '/Svgs/avatarsvg.png'}" alt="Driver">
+            <div>
+              <strong>${item.fullname}</strong>
+              <small>${item.email}</small>
+            </div>
+          </div>`;
+      } else {
+        return `
+          <div class="result-item" 
+               onclick='showOverviewProfile("vehicle", ${JSON.stringify(item).replace(/"/g, "&quot;")})'>
+            <div>
+              <strong>${item.product}</strong>
+              <small>${item.model}</small>
+            </div>
+          </div>`;
+      }
+    }).join("");
+  } catch (err) {
+    console.error(err);
+    overviewList.innerHTML = "<p style='color:red;'>Error loading data.</p>";
+  }
+}
+
+// --- Toggle Between Drivers & Vehicles ---
+viewDriversBtn.addEventListener("click", () => {
+  viewDriversBtn.classList.add("active");
+  viewVehiclesBtn.classList.remove("active");
+  loadOverview("drivers");
+});
+
+viewVehiclesBtn.addEventListener("click", () => {
+  viewVehiclesBtn.classList.add("active");
+  viewDriversBtn.classList.remove("active");
+  loadOverview("vehicles");
+});
+
+// --- Load Default ---
+loadOverview("drivers");
+
+
+// 🧾 MODAL DISPLAY FOR OVERVIEW ITEMS
+function showOverviewProfile(type, item) {
+  modal.classList.remove("hidden");
+  
+  if (type === "driver") {
+    profileContent.innerHTML = `
+      <h3>👤 Driver Profile</h3>
+      <img src="${item.profile_image || '/Svgs/avatarsvg.png'}" width="80" height="80" style="border-radius:50%;"><br>
+      <label>Full Name:</label><br>
+      <input type="text" id="editFullname" value="${item.fullname}" /><br><br>
+      <label>Email:</label><br>
+      <input type="text" id="editEmail" value="${item.email}" /><br><br>
+      <label>Date Created:</label><br>
+      <input type="text" value="${new Date(item.created_at).toLocaleString()}" disabled /><br><br>
+      <div style="display:flex; gap:10px;">
+        <button onclick="saveChanges('driver', '${item.id}')">Save Changes</button>
+        <button style="background:red;" onclick="deleteItem('driver','${item.id}')">Delete</button>
+      </div>
+    `;
+  } else {
+    profileContent.innerHTML = `
+      <h3>🚗 Vehicle Profile</h3>
+      <label>Product:</label><br>
+      <input type="text" id="editProduct" value="${item.product}" /><br><br>
+      <label>Model:</label><br>
+      <input type="text" id="editModel" value="${item.model}" /><br><br>
+      <label>Registration Number:</label><br>
+      <input type="text" id="editReg" value="${item.registration_number}" /><br><br>
+      <label>Description:</label><br>
+      <textarea id="editDesc">${item.description || ""}</textarea><br><br>
+      <label>Date Created:</label><br>
+      <input type="text" value="${new Date(item.created_at).toLocaleString()}" disabled /><br><br>
+      <div style="display:flex; gap:10px;">
+        <button onclick="saveChanges('vehicle', '${item.id}')">Save Changes</button>
+        <button style="background:red;" onclick="deleteItem('vehicle','${item.id}')">Delete</button>
+      </div>
+    `;
+  }
+}
+
+// 🗑 DELETE FUNCTION
+async function deleteItem(type, id) {
+  if (!confirm("Are you sure you want to delete this " + type + "?")) return;
+  try {
+    const res = await fetch(`/admin/delete/${type}/${id}`, { method: "DELETE" });
+    const result = await res.json();
+    alert(result.message);
+    if (result.success) {
+      modal.classList.add("hidden");
+      loadOverview(type + "s"); // refresh list
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Failed to delete " + type);
+  }
+}
+// this is just profile pop up for overviw items search sectio has its own 
+const overviewModal = document.getElementById("overviewProfileModal");
+const overviewProfileContent = document.getElementById("overviewProfileContent");
+const closeOverviewModal = document.getElementById("closeOverviewModal");
+
+closeOverviewModal.addEventListener("click", () => overviewModal.classList.add("hidden"));
+
+async function showOverviewProfile(type, item) {
+  overviewModal.classList.remove("hidden");
+
+  if (type === "driver") {
+    overviewProfileContent.innerHTML = `
+      <h3>👤 Driver Profile</h3>
+      <img src="${item.profile_image || '/Svgs/avatarsvg.png'}" alt="Driver" />
+      <p><strong>Name:</strong> ${item.fullname}</p>
+      <p><strong>Email:</strong> ${item.email}</p>
+      <p><strong>Date Created:</strong> ${new Date(item.created_at).toLocaleString() || "N/A"}</p>
+      <br>
+      <label>Edit Full Name:</label>
+      <input type="text" id="editFullname" value="${item.fullname}" />
+      <label>Edit Email:</label>
+      <input type="text" id="editEmail" value="${item.email}" />
+      <button onclick="saveOverviewChanges('driver', '${item.id}')">Save Changes</button>
+      <button class="delete-btn" onclick="deleteOverviewItem('driver', '${item.id}')">Delete Driver</button>
+    `;
+  } else {
+    overviewProfileContent.innerHTML = `
+      <h3>🚘 Vehicle Profile</h3>
+      
+      <p><strong>Date Created:</strong> ${new Date(item.created_at).toLocaleString() || "N/A"}</p>
+      
+      <label>Edit Product:</label>
+      <input type="text" id="editProduct" value="${item.product}" />
+      <label>Edit Model:</label>
+      <input type="text" id="editModel" value="${item.model}" />
+      <label>Edit Reg No:</label>
+      <input type="text" id="editReg" value="${item.registration_number}" />
+      <label>Description:</label>
+      <textarea id="editDesc">${item.description || ""}</textarea>
+      <button onclick="saveOverviewChanges('vehicle', '${item.id}')">Save Changes</button>
+      <button class="delete-btn" onclick="deleteOverviewItem('vehicle', '${item.id}')">Delete Vehicle</button>
+    `;
+  }
+}
+
+// 💾 SAVE CHANGES
+async function saveOverviewChanges(type, id) {
+  let payload = {};
+
+  if (type === "driver") {
+    payload = {
+      fullname: document.getElementById("editFullname").value,
+      email: document.getElementById("editEmail").value,
+    };
+  } else {
+    payload = {
+      product: document.getElementById("editProduct").value,
+      model: document.getElementById("editModel").value,
+      registration_number: document.getElementById("editReg").value,
+      description: document.getElementById("editDesc").value,
+    };
+  }
+
+  const res = await fetch(`/admin/update/${type}/${id}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await res.json();
+  alert(result.message || "Updated!");
+  if (result.success) overviewModal.classList.add("hidden");
+}
+
+// ❌ DELETE ITEM
+async function deleteOverviewItem(type, id) {
+  if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
+
+  const res = await fetch(`/admin/delete/${type}/${id}`, { method: "DELETE" });
+  const result = await res.json();
+  alert(result.message || "Deleted!");
+  if (result.success) overviewModal.classList.add("hidden");
+}
+
+
+
+
+</script>
+
+
+
+<!-- MAP INTEGRATION======================================================================================== -->
+<script>
+(function () {
+  const ADMIN_POLL_INTERVAL_MS = 5000;
+  const PROFILE_POLL_MS = 2000;
+  const OFFLINE_THRESHOLD_MS = 60000; // 60 seconds
+  const addrCache = new Map();
+
+  let fleetMap = null;
+  let driversById = {};
+  const fleetMarkers = {};
+  let adminPollTimer = null;
+  let profilePollTimer = null;
+
+  // DOM refs
+  let driversListEl, driversCountEl, fleetModal, fleetModalContent, fleetModalClose, fleetMapEl;
+
+  function ensureDomRefs() {
+    driversListEl ??= document.getElementById('driversList');
+    driversCountEl ??= document.getElementById('driversCount');
+    fleetModal ??= document.getElementById('fleetDriverModal');
+    fleetModalContent ??= document.getElementById('fleetDriverContent');
+    fleetModalClose ??= document.getElementById('closeFleetModal');
+    fleetMapEl ??= document.getElementById('fleetMap');
+
+    if (fleetModalClose && !fleetModalClose._init) {
+      fleetModalClose._init = true;
+      fleetModalClose.addEventListener('click', closeFleetModal);
+    }
+    if (fleetModal && !fleetModal._outsideInit) {
+      fleetModal._outsideInit = true;
+      fleetModal.addEventListener('click', (e) => { if (e.target === fleetModal) closeFleetModal(); });
+    }
+  }
+
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"'`=\/]/g, ch => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;",
+      '"': "&quot;", "'": "&#39;", "`": "&#x60;", "/": "&#x2F;"
+    }[ch] || ch));
+  }
+
+  async function reverseGeocodeCached(lat, lng) {
+    if (!lat || !lng) return null;
+    const key = `${(+lat).toFixed(6)},${(+lng).toFixed(6)}`;
+    if (addrCache.has(key)) return addrCache.get(key);
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}&addressdetails=1`;
+      const resp = await fetch(url, { headers: { 'User-Agent': 'fleet-app/1.0 (contact@example.com)' } });
+      if (!resp.ok) return null;
+      const json = await resp.json();
+      const parts = [];
+      ['road','neighbourhood','suburb','village','town','city','county','state','postcode','country'].forEach(k => {
+        if (json.address[k] && !parts.includes(json.address[k])) parts.push(json.address[k]);
+      });
+      const friendly = parts.length ? parts.join(', ') : json.display_name;
+      addrCache.set(key, friendly || null);
+      return addrCache.get(key);
+    } catch (err) { console.warn('reverseGeocodeCached error', err); return null; }
+  }
+
+  async function fetchDriversFromServer() {
+    try {
+      const r = await fetch('/admin/overview/drivers', { credentials: 'same-origin' });
+      if (!r.ok) return { success: false, data: [] };
+      return await r.json();
+    } catch (e) { console.error('fetchDriversFromServer error', e); return { success: false, data: [] }; }
+  }
+
+  function getDriverAvatar(driver) {
+    if (!driver.profile_image) return '/Svgs/avatarsvg.png';
+    const cacheBuster = driver.updated_at ? new Date(driver.updated_at).getTime() : '';
+    return cacheBuster ? `${driver.profile_image}?v=${cacheBuster}` : driver.profile_image;
+  }
+
+  async function upsertMarker(driver) {
+    if (!fleetMap) return;
+    const id = String(driver.id);
+    const lat = parseFloat(driver.is_online ? driver.current_lat : driver.last_lat);
+    const lng = parseFloat(driver.is_online ? driver.current_lng : driver.last_lng);
+    if (isNaN(lat) || isNaN(lng)) return;
+
+    const address = await reverseGeocodeCached(lat, lng);
+    const addrText = address || `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    const avatar = getDriverAvatar(driver);
+
+    const infoHtml = `
+      <div style="min-width:220px;text-align:center">
+        <img src="${escapeHtml(avatar)}" alt="avatar" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--pc)" onerror="this.onerror=null;this.src='/Svgs/avatarsvg.png'"/>
+        <div style="font-weight:700;margin-top:6px">${escapeHtml(driver.fullname || '—')}</div>
+        <div style="font-size:12px;color:#444">${escapeHtml(driver.email || '—')}</div>
+        <div style="margin-top:6px;font-size:13px">${escapeHtml(addrText)}</div>
+        <div style="margin-top:8px;">
+          <button class="fleet-view-driver" data-driver-id="${escapeHtml(id)}" style="padding:6px 10px;border-radius:6px;border:none;background:var(--pc);color:#fff;cursor:pointer">
+            View Profile
+          </button>
+        </div>
+      </div>
+    `;
+
+    if (fleetMarkers[id]) {
+      const entry = fleetMarkers[id];
+      entry.marker.setPosition({ lat, lng });
+      entry.infoWindow.setContent(infoHtml);
+      return;
+    }
+
+    const marker = new google.maps.Marker({ position: { lat, lng }, map: fleetMap, title: driver.fullname || 'Driver' });
+    const infoWindow = new google.maps.InfoWindow({ content: infoHtml });
+    marker.addListener('click', () => infoWindow.open(fleetMap, marker));
+    fleetMarkers[id] = { marker, infoWindow };
+  }
+
+  function cleanupMarkers(currentIds) {
+    Object.keys(fleetMarkers).forEach(id => {
+      if (!currentIds.has(id)) {
+        const entry = fleetMarkers[id];
+        if (entry.marker) entry.marker.setMap(null);
+        delete fleetMarkers[id];
+      }
+    });
+  }
+
+  function renderDriversList(drivers) {
+    ensureDomRefs();
+    if (!driversListEl) return;
+
+    const seen = new Set();
+    drivers.forEach(drv => {
+      const id = String(drv.id);
+      seen.add(id);
+      const avatar = getDriverAvatar(drv);
+      const statusColor = drv.is_online ? '#22c55e' : '#9ca3af';
+      const statusText = drv.is_online ? 'Online' : 'Offline';
+
+      let item = driversListEl.querySelector(`.driver-item[data-id="${id}"]`);
+      if (!item) {
+        item = document.createElement('div');
+        item.className = 'driver-item';
+        item.dataset.id = id;
+        item.innerHTML = `
+          <img class="driver-avatar" src="${escapeHtml(avatar)}" alt="avatar" onerror="this.onerror=null;this.src='/Svgs/avatarsvg.png'">
+          <div class="driver-meta">
+            <div class="name">${escapeHtml(drv.fullname || '—')}</div>
+            <div class="email">${escapeHtml(drv.email || '—')}</div>
+          </div>
+        `;
+        item.addEventListener('click', () => openDriverModal(id));
+        driversListEl.appendChild(item);
+      } else {
+        const statusEl = item.querySelector('.status');
+        statusEl.style.color = statusColor;
+        statusEl.textContent = `● ${statusText}`;
+      }
+    });
+
+    [...driversListEl.querySelectorAll('.driver-item')].forEach(item => {
+      if (!seen.has(item.dataset.id)) item.remove();
+    });
+
+    if (driversCountEl) driversCountEl.textContent = `(${drivers.length})`;
+  }
+
+  async function openDriverModal(driverId) {
+    ensureDomRefs();
+    const drv = driversById[String(driverId)];
+    if (!drv) return showMiniNotice('Driver data not available');
+
+    if (profilePollTimer) clearInterval(profilePollTimer);
+    await renderModalContent(drv);
+    fleetModal.classList.remove('hidden');
+
+    profilePollTimer = setInterval(async () => {
+      try {
+        const r = await fetch(`/admin/driver/${driverId}/location`, { credentials: 'same-origin' });
+        if (!r.ok) return;
+        const json = await r.json();
+        if (!json.success || !json.data) return;
+        driversById[String(driverId)] = { ...driversById[String(driverId)], ...json.data };
+        await renderModalContent(driversById[String(driverId)]);
+        await upsertMarker(driversById[String(driverId)]);
+      } catch {}
+    }, PROFILE_POLL_MS);
+  }
+
+  async function renderModalContent(drv) {
+    ensureDomRefs();
+    const lat = parseFloat(drv.is_online ? drv.current_lat : drv.last_lat);
+    const lng = parseFloat(drv.is_online ? drv.current_lng : drv.last_lng);
+    const hasCoords = !isNaN(lat) && !isNaN(lng);
+    const address = hasCoords ? await reverseGeocodeCached(lat, lng) : null;
+    const addrText = hasCoords ? (address || `${lat}, ${lng}`) : 'Not available';
+    const avatar = getDriverAvatar(drv);
+
+    fleetModalContent.innerHTML = `
+      <h3 style="margin-top:0">👤 ${escapeHtml(drv.fullname || '—')}</h3>
+      <img src="${escapeHtml(avatar)}" style="width:96px;height:96px;border-radius:50%;display:block;margin:0 auto 10px;object-fit:cover;border:2px solid var(--pc)" onerror="this.onerror=null;this.src='/Svgs/avatarsvg.png'">
+      <p><strong>Email:</strong> ${escapeHtml(drv.email || '—')}</p>
+      ${drv.is_online
+        ? `<p><strong>Current Location:</strong> ${escapeHtml(addrText)}</p>`
+        : `<p><strong>Last Known Location:</strong> ${escapeHtml(addrText)}</p>`}
+      <p><strong>Status:</strong> ${drv.is_online ? '🟢 Online' : '⚪ Offline'}</p>
+      <div style="margin-top:10px;">
+        <button id="centerOnDriverBtn" style="padding:8px 12px;border-radius:6px;border:none;background:var(--pc);color:#fff;cursor:pointer">
+          Center on map
+        </button>
+      </div>
+    `;
+
+    document.getElementById('centerOnDriverBtn').onclick = () => {
+      fleetModal.classList.add('hidden');
+      if (hasCoords && fleetMap) {
+        fleetMap.panTo({ lat, lng });
+        fleetMap.setZoom(14);
+        const e = fleetMarkers[String(drv.id)];
+        if (e && e.infoWindow && e.marker) e.infoWindow.open(fleetMap, e.marker);
+      } else showMiniNotice('No live location available for this driver.');
+    };
+  }
+
+  function closeFleetModal() {
+    fleetModal.classList.add('hidden');
+    if (profilePollTimer) { clearInterval(profilePollTimer); profilePollTimer = null; }
+  }
+
+  function showMiniNotice(txt) {
+    const el = document.createElement('div');
+    el.style.cssText = 'position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 14px;border-radius:8px;z-index:9999;';
+    el.textContent = txt;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3000);
+  }
+
+  async function fetchAndRenderDrivers() {
+    const res = await fetchDriversFromServer();
+    if (!res.success) {
+      if (driversListEl) driversListEl.innerHTML = `<p class="muted">Unable to load drivers.</p>`;
+      if (driversCountEl) driversCountEl.textContent = `(0)`;
+      return;
+    }
+    const drivers = res.data || [];
+    driversById = {};
+    const ids = new Set();
+    drivers.forEach(d => { driversById[String(d.id)] = d; ids.add(String(d.id)); });
+    renderDriversList(drivers);
+    drivers.forEach(d => upsertMarker(d).catch(console.warn));
+    cleanupMarkers(ids);
+  }
+
+  function startAdminPolling() {
+    if (adminPollTimer) clearInterval(adminPollTimer);
+    adminPollTimer = setInterval(fetchAndRenderDrivers, ADMIN_POLL_INTERVAL_MS);
+  }
+
+  window.initFleetMap = function initFleetMap() {
+    ensureDomRefs();
+    fleetMap = new google.maps.Map(fleetMapEl, {
+      center: { lat: 9.0820, lng: 8.6753 },
+      zoom: 6,
+      mapTypeControl: true,
+      streetViewControl: false
+    });
+    Object.values(driversById).forEach(d => upsertMarker(d).catch(console.warn));
+    startAdminPolling();
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    ensureDomRefs();
+    fetchAndRenderDrivers();
+  });
+
+  document.addEventListener('click', (ev) => {
+    const btn = ev.target.closest && ev.target.closest('.fleet-view-driver');
+    if (btn) openDriverModal(btn.dataset.driverId);
+  });
+
+  // --- DRIVER LOCATION UPDATE LOOP ----------------------------------------
+  async function sendLocation(latitude, longitude, accuracy) {
+    try {
+      const resp = await fetch('/driver/update-location', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ latitude, longitude, accuracy })
+      });
+      const data = await resp.json();
+      if (!data.success) console.warn('Failed to update location:', data.message);
+    } catch (err) { console.error('sendLocation error:', err); }
+  }
+
+  if ('geolocation' in navigator) {
+    navigator.geolocation.watchPosition(
+      async (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+        await sendLocation(lat, lng, accuracy);
+      },
+      (err) => {
+        console.error('Geolocation error:', err.message);
+        if (err.code === 1) alert('Please enable location access for accurate tracking.');
+      },
+      { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+    );
+  } else {
+    alert('Geolocation is not supported by your browser.');
+  }
+
+  // --- HEARTBEAT LOOP (KEEP DRIVER ONLINE) ------------------------------------
+  // setInterval(async () => {
+  //   try {
+  //     const resp = await fetch('/driver/heartbeat', {
+  //       method: 'POST',
+  //       credentials: 'same-origin',
+  //       headers: { 'Content-Type': 'application/json' }
+  //     });
+  //     const data = await resp.json();
+  //     if (!data.success) console.warn('Heartbeat failed');
+  //   } catch (err) {
+  //     console.error('Heartbeat error:', err);
+  //   }
+  // }, 10000); // every 10s 
+
+})();
+
+
+
+</script>
+
+
+
+<!-- SCRIPT FOR TOGGLING DRIVERS ON MOBILE============================= -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('driversToggleBtn');
+  const driversSidebar = document.querySelector('.drivers-sidebar');
+
+  if (!toggleBtn || !driversSidebar) return;
+
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = driversSidebar.classList.toggle('open');
+    driversSidebar.style.display = isOpen ? 'flex' : 'none';
+    toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    toggleBtn.textContent = isOpen ? 'Close ✕' : 'Drivers ▾';
+  });
+
+  // Optional: auto-close when clicking outside the panel on mobile
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768 && driversSidebar.classList.contains('open')) {
+      const clickedInside = driversSidebar.contains(e.target) || toggleBtn.contains(e.target);
+      if (!clickedInside) {
+        driversSidebar.classList.remove('open');
+        driversSidebar.style.display = 'none';
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.textContent = 'Drivers ▾';
+      }
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<!-- SCRIPT FOR ROUTE OPTIMIZATIO SECTION================================================== -->
+<script>
+(() => {
+  const ORS_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjM0ZmE0ZTMwNDUxOTQ3MTk4NDYzYTMzN2ViNGI4MWRlIiwiaCI6Im11cm11cjY0In0=";
+  const AUTOCOMPLETE_MIN_CHARS = 2;
+  const AUTOCOMPLETE_DEBOUNCE_MS = 250;
+  const ROUTE_COLORS = ["#00c853","#ff5252","#2196f3"]; // best=green, alt=red, alt2=blue
+
+  let map;
+  let startMarker = null, endMarker = null, trackingMarker = null;
+  let startCoords = null, endCoords = null;
+  let picking = null;
+  let routePolylines = [];
+  let trackingActive = false;
+  let trackingTimer = null;
+  let suggestionBoxes = {};
+
+  const startInput = document.getElementById('startInput');
+  const endInput = document.getElementById('endInput');
+  const startSuggestionsEl = document.getElementById('startSuggestions');
+  const endSuggestionsEl = document.getElementById('endSuggestions');
+  const useMyLocationBtn = document.getElementById('useMyLocationBtn');
+  const pickStartBtn = document.getElementById('pickStartBtn');
+  const pickEndBtn = document.getElementById('pickEndBtn');
+  const routeBtn = document.getElementById('routeBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const modeSelect = document.getElementById('modeSelect');
+  const startTrackingBtn = document.getElementById('startTrackingBtn');
+  const stopTrackingBtn = document.getElementById('stopTrackingBtn');
+  const liveETA = document.getElementById('liveETA');
+  const mapEl = document.getElementById('routingMap');
+
+  suggestionBoxes.start = startSuggestionsEl;
+  suggestionBoxes.end = endSuggestionsEl;
+
+  function debounce(fn, ms) {
+    let t; return (...a) => { clearTimeout(t); t=setTimeout(()=>fn(...a),ms); };
+  }
+
+  window.initRoutingMap = function initRoutingMap() {
+    map = new google.maps.Map(mapEl, {
+      center: { lat: 9.0820, lng: 8.6753 },
+      zoom: 7,
+      streetViewControl: false,
+      mapTypeControl: false,
+    });
+
+    map.addListener('click', (ev) => {
+      if (!picking) return;
+      const lat = ev.latLng.lat(), lng = ev.latLng.lng();
+      if (picking === 'start') setStart({ lat, lng }, true);
+      if (picking === 'end') setEnd({ lat, lng }, true);
+      picking = null;
+      [pickStartBtn, pickEndBtn].forEach(b => b.classList.remove('active'));
+    });
+  };
+
+  async function reverseGeocode(lat, lng){
+    try {
+      const url = `https://api.openrouteservice.org/geocode/reverse?api_key=${encodeURIComponent(ORS_KEY)}&point.lat=${lat}&point.lon=${lng}`;
+      const r = await fetch(url);
+      const j = await r.json();
+      return j.features?.[0]?.properties?.label || `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+    } catch { return `${lat.toFixed(5)}, ${lng.toFixed(5)}`; }
+  }
+
+  async function autocompleteSearch(text) {
+    if (!text || text.trim().length < AUTOCOMPLETE_MIN_CHARS) return [];
+    try {
+      const url = `https://api.openrouteservice.org/geocode/autocomplete?api_key=${encodeURIComponent(ORS_KEY)}&text=${encodeURIComponent(text)}&size=6`;
+      const r = await fetch(url);
+      const j = await r.json();
+      return (j.features || []).map(f => ({
+        label: f.properties.label,
+        lat: f.geometry.coordinates[1],
+        lng: f.geometry.coordinates[0],
+      }));
+    } catch { return []; }
+  }
+
+  function showSuggestions(which, items) {
+    const box = suggestionBoxes[which];
+    box.innerHTML = '';
+    if (!items.length) { box.style.display='none'; return; }
+    items.forEach(it => {
+      const d=document.createElement('div');
+      d.textContent=it.label;
+      d.addEventListener('click',()=> {
+        which==='start'?setStart(it):setEnd(it);
+        box.style.display='none';
+      });
+      box.appendChild(d);
+    });
+    box.style.display='block';
+  }
+
+  const startAuto=debounce(async(v)=>showSuggestions('start',await autocompleteSearch(v)),AUTOCOMPLETE_DEBOUNCE_MS);
+  const endAuto=debounce(async(v)=>showSuggestions('end',await autocompleteSearch(v)),AUTOCOMPLETE_DEBOUNCE_MS);
+
+  startInput.addEventListener('input',(e)=>startAuto(e.target.value));
+  endInput.addEventListener('input',(e)=>endAuto(e.target.value));
+  document.addEventListener('click',(ev)=>{if(!ev.target.closest('.suggestions')){startSuggestionsEl.style.display='none';endSuggestionsEl.style.display='none';}});
+
+  async function setStart({lat,lng}, dontPan=false){
+    startCoords={lat,lng};
+    if(startMarker)startMarker.setPosition(startCoords);
+    else startMarker=new google.maps.Marker({position:startCoords,map,label:'A'});
+    if(!dontPan){map.panTo(startCoords);map.setZoom(13);}
+    startInput.value=await reverseGeocode(lat,lng);
+    startTrackingBtn.style.display='inline-block';
+  }
+  async function setEnd({lat,lng}, dontPan=false){
+    endCoords={lat,lng};
+    if(endMarker)endMarker.setPosition(endCoords);
+    else endMarker=new google.maps.Marker({position:endCoords,map,label:'B'});
+    if(!dontPan){map.panTo(endCoords);map.setZoom(13);}
+    endInput.value=await reverseGeocode(lat,lng);
+  }
+
+  pickStartBtn.onclick=()=>{picking='start';pickStartBtn.classList.add('active');pickEndBtn.classList.remove('active');alert('Click on the map to pick START point.');};
+  pickEndBtn.onclick=()=>{picking='end';pickEndBtn.classList.add('active');pickStartBtn.classList.remove('active');alert('Click on the map to pick DESTINATION point.');};
+
+  useMyLocationBtn.onclick=()=> {
+    if(!navigator.geolocation) return alert('Geolocation not supported');
+    navigator.geolocation.getCurrentPosition(async(pos)=>{
+      const lat=pos.coords.latitude,lng=pos.coords.longitude;
+      await setStart({lat,lng});
+    },err=>alert('Failed to get location: '+err.message),{enableHighAccuracy:true});
+  };
+
+  clearBtn.onclick=()=> {
+    [startMarker,endMarker,trackingMarker].forEach(m=>m&&m.setMap(null));
+    startMarker=endMarker=trackingMarker=null;
+    startCoords=endCoords=null;
+    clearRoutes();
+    startInput.value=endInput.value='';
+    liveETA.style.display='none';
+    stopTracking();
+  };
+
+  function clearRoutes(){
+    for(const {poly,info} of routePolylines){poly.setMap(null);info.close();}
+    routePolylines=[];
+  }
+
+  async function fetchRoutes(start,end,profile){
+    const body={coordinates:[[start.lng,start.lat],[end.lng,end.lat]],instructions:false,preference:"recommended",alternative_routes:{target_count:3}};
+    const r=await fetch(`https://api.openrouteservice.org/v2/directions/${profile}/geojson`,{method:'POST',headers:{'Authorization':ORS_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok)throw new Error(await r.text());
+    return r.json();
+  }
+
+  function drawRoutes(geojson){
+    clearRoutes();
+    if(!geojson.features?.length)return alert('No route found');
+    geojson.features.forEach((f,i)=>{
+      const coords=f.geometry.coordinates.map(c=>({lat:c[1],lng:c[0]}));
+      const color=ROUTE_COLORS[i]||'#999';
+      const poly=new google.maps.Polyline({path:coords,strokeColor:color,strokeOpacity:0.9,strokeWeight:i===0?6:4,map});
+      const dist=(f.properties.summary.distance/1000).toFixed(1);
+      const dur=Math.round(f.properties.summary.duration/60);
+      const label=(i===0?'Best':'Alt '+i)+` — ${dist} km, ${dur} min`;
+      const info=new google.maps.InfoWindow({content:`<div style="font-size:13px">${label}</div>`});
+      poly.addListener('mouseover',e=>{info.setPosition(e.latLng);info.open(map);});
+      poly.addListener('mouseout',()=>info.close());
+      routePolylines.push({poly,info,meta:f.properties});
+    });
+    const bounds=new google.maps.LatLngBounds();
+    routePolylines[0].poly.getPath().forEach(p=>bounds.extend(p));
+    map.fitBounds(bounds,80);
+  }
+
+  routeBtn.onclick=async()=>{
+    if(!startCoords||!endCoords)return alert('Select start and destination');
+    try{
+      routeBtn.disabled=true;routeBtn.textContent='Routing...';
+      const geojson=await fetchRoutes(startCoords,endCoords,modeSelect.value);
+      drawRoutes(geojson);
+      if(trackingActive)updateETA();
+    }catch(e){alert('Routing failed: '+e.message);}finally{routeBtn.disabled=false;routeBtn.textContent='Show route';}
+  };
+
+  // === Tracking Logic ===
+  startTrackingBtn.onclick=()=>startTracking();
+  stopTrackingBtn.onclick=()=>stopTracking();
+
+  function startTracking(){
+    if(trackingActive)return;
+    if(!navigator.geolocation)return alert('Geolocation not supported');
+    trackingActive=true;
+    startTrackingBtn.style.display='none';
+    stopTrackingBtn.style.display='inline-block';
+    liveETA.style.display='block';
+    trackingMarker=new google.maps.Marker({map,label:'🚗',animation:google.maps.Animation.DROP});
+    trackingTimer=setInterval(()=> {
+      navigator.geolocation.getCurrentPosition(async(pos)=>{
+        const lat=pos.coords.latitude,lng=pos.coords.longitude;
+        trackingMarker.setPosition({lat,lng});
+        startCoords={lat,lng};
+        updateETA();
+      });
+    },5000);
+  }
+
+  function stopTracking(){
+    trackingActive=false;
+    clearInterval(trackingTimer);
+    trackingTimer=null;
+    startTrackingBtn.style.display='inline-block';
+    stopTrackingBtn.style.display='none';
+    liveETA.textContent='ETA: paused';
+  }
+
+  async function updateETA(){
+    if(!startCoords||!endCoords)return;
+    try{
+      const geo=await fetchRoutes(startCoords,endCoords,modeSelect.value);
+      const best=geo.features[0];
+      const dur=Math.round(best.properties.summary.duration/60);
+      const dist=(best.properties.summary.distance/1000).toFixed(1);
+      liveETA.textContent=`ETA: ${dur} min (${dist} km)`;
+    }catch{liveETA.textContent='ETA: updating...';}
+  }
+
+})();
+
+</script>
+
+
+
+
+<!-- FOR ADMIN TRIP SCHEDULING================================================================= -->
+
+<!-- Make sure Google Maps script is loaded with callback=initTripMap -->
+<script>
+(() => {
+  // ---------- CONFIG ----------
+  const NOMINATIM_BASE = "https://nominatim.openstreetmap.org";
+  const NOMINATIM_EMAIL = "contact@example.com"; // optional polite header; replace if you want
+
+  // ---------- STATE ----------
+  let map = null;
+  let ts_startMarker = null;
+  let ts_endMarker = null;
+  let ts_startCoords = null;
+  let ts_endCoords = null;
+  let ts_picking = null; // 'start' | 'end' | null
+
+  // ---------- DOM (namespaced) ----------
+  const startInput = document.getElementById('ts_startInput');
+  const endInput = document.getElementById('ts_endInput');
+  const startSuggestions = document.getElementById('ts_startSuggestions');
+  const endSuggestions = document.getElementById('ts_endSuggestions');
+  const useMyLocationBtn = document.getElementById('ts_useMyLocationBtn');
+  const pickStartBtn = document.getElementById('ts_pickStartBtn');
+  const pickEndBtn = document.getElementById('ts_pickEndBtn');
+  const selectDriverBtn = document.getElementById('ts_selectDriverBtn');
+  const driverInput = document.getElementById('ts_driverInput');
+  const driverModal = document.getElementById('ts_driverModal');
+  const driverListEl = document.getElementById('ts_driverList');
+  const closeDriverModalBtn = document.getElementById('ts_closeDriverModal');
+  const assignTripBtn = document.getElementById('ts_assignTripBtn');
+  const clearBtn = document.getElementById('ts_clearBtn');
+
+  // user-friendly throttle / debounce
+  function debounce(fn, ms=300){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+
+  // ---------- Map init (Google Maps should call window.initTripMap) ----------
+  window.initTripMap = function initTripMap() {
+    const el = document.getElementById('ts_tripMap');
+    if (!el) return console.error('No #ts_tripMap element.');
+    map = new google.maps.Map(el, {
+      center: { lat: 9.0820, lng: 8.6753 },
+      zoom: 7,
+      streetViewControl: false,
+      mapTypeControl: false
+    });
+
+    // click to pick start/end
+    map.addListener('click', (ev) => {
+      if (!ts_picking) return;
+      const lat = ev.latLng.lat(), lng = ev.latLng.lng();
+      if (ts_picking === 'start') setStartFromCoords({ lat, lng }, true);
+      if (ts_picking === 'end') setEndFromCoords({ lat, lng }, true);
+      ts_picking = null;
+      pickStartBtn.classList.remove('active');
+      pickEndBtn.classList.remove('active');
+    });
+  };
+
+  // ---------- Nominatim helpers ----------
+  async function nominatimSearch(q, limit=6) {
+    try {
+      const url = `${NOMINATIM_BASE}/search?format=jsonv2&q=${encodeURIComponent(q)}&addressdetails=1&limit=${limit}`;
+      const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+      if (!res.ok) return [];
+      const j = await res.json();
+      return j; // array of results
+    } catch (err) { console.warn('nominatimSearch err', err); return []; }
+  }
+
+  async function nominatimReverse(lat, lon) {
+    try {
+      const url = `${NOMINATIM_BASE}/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&addressdetails=1`;
+      const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+      if (!res.ok) return `${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+      const j = await res.json();
+      return j.display_name || `${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+    } catch (err) { return `${lat.toFixed(5)}, ${lon.toFixed(5)}`; }
+  }
+
+  // ---------- Suggestion rendering ----------
+  function renderSuggestions(container, items) {
+    container.innerHTML = '';
+    if (!items || items.length === 0) { container.hidden = true; return; }
+    items.forEach(it => {
+      const li = document.createElement('li');
+      li.className = 'ts-suggestionItem';
+      li.textContent = it.display_name;
+      li.dataset.lat = it.lat;
+      li.dataset.lon = it.lon;
+      container.appendChild(li);
+    });
+    container.hidden = false;
+  }
+
+  // add delegation for suggestion clicks
+  startSuggestions.addEventListener('click', (ev) => {
+    const li = ev.target.closest('.ts-suggestionItem');
+    if (!li) return;
+    const lat = parseFloat(li.dataset.lat), lon = parseFloat(li.dataset.lon);
+    setStartFromCoords({ lat, lng: lon }, true);
+    startSuggestions.hidden = true;
+  });
+  endSuggestions.addEventListener('click', (ev) => {
+    const li = ev.target.closest('.ts-suggestionItem');
+    if (!li) return;
+    const lat = parseFloat(li.dataset.lat), lon = parseFloat(li.dataset.lon);
+    setEndFromCoords({ lat, lng: lon }, true);
+    endSuggestions.hidden = true;
+  });
+
+  // ---------- Input handlers with debounce ----------
+  const startInputHandler = debounce(async (ev) => {
+    const v = ev.target.value.trim();
+    if (!v) { startSuggestions.hidden = true; return; }
+    const results = await nominatimSearch(v, 6);
+    renderSuggestions(startSuggestions, results);
+  }, 300);
+
+  const endInputHandler = debounce(async (ev) => {
+    const v = ev.target.value.trim();
+    if (!v) { endSuggestions.hidden = true; return; }
+    const results = await nominatimSearch(v, 6);
+    renderSuggestions(endSuggestions, results);
+  }, 300);
+
+  startInput.addEventListener('input', startInputHandler);
+  endInput.addEventListener('input', endInputHandler);
+
+  // click outside suggestions hides them
+  document.addEventListener('click', (ev) => {
+    if (!ev.target.closest('#ts_startInput') && !ev.target.closest('#ts_startSuggestions')) startSuggestions.hidden = true;
+    if (!ev.target.closest('#ts_endInput') && !ev.target.closest('#ts_endSuggestions')) endSuggestions.hidden = true;
+  });
+
+  // ---------- Set markers & fill inputs ----------
+  async function setStartFromCoords({ lat, lng }, dontPan=false) {
+    ts_startCoords = { lat, lng };
+    if (ts_startMarker) ts_startMarker.setPosition({ lat, lng });
+    else ts_startMarker = new google.maps.Marker({ position: { lat, lng }, map, label: 'A' });
+    if (!dontPan && map) { map.panTo({ lat, lng }); map.setZoom(13); }
+    startInput.value = await nominatimReverse(lat, lng);
+    startSuggestions.hidden = true;
+  }
+
+  async function setEndFromCoords({ lat, lng }, dontPan=false) {
+    ts_endCoords = { lat, lng };
+    if (ts_endMarker) ts_endMarker.setPosition({ lat, lng });
+    else ts_endMarker = new google.maps.Marker({ position: { lat, lng }, map, label: 'B' });
+    if (!dontPan && map) { map.panTo({ lat, lng }); map.setZoom(13); }
+    endInput.value = await nominatimReverse(lat, lng);
+    endSuggestions.hidden = true;
+  }
+
+  // pick-from-map buttons
+  pickStartBtn.addEventListener('click', () => {
+    ts_picking = 'start';
+    pickStartBtn.classList.add('active');
+    pickEndBtn.classList.remove('active');
+    alert('Click on the map to pick the START point.');
+  });
+  pickEndBtn.addEventListener('click', () => {
+    ts_picking = 'end';
+    pickEndBtn.classList.add('active');
+    pickStartBtn.classList.remove('active');
+    alert('Click on the map to pick the DESTINATION point.');
+  });
+
+  // Use my current location (fills start)
+  useMyLocationBtn.addEventListener('click', () => {
+    if (!navigator.geolocation) return alert('Geolocation not supported by your browser.');
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      const lat = pos.coords.latitude, lon = pos.coords.longitude;
+      if (!map) { ts_startCoords = { lat, lng: lon }; startInput.value = `${lat.toFixed(5)}, ${lon.toFixed(5)}`; return; }
+      map.setCenter({ lat, lng: lon }); map.setZoom(13);
+      await setStartFromCoords({ lat, lng: lon }, true);
+    }, (err)=> alert('Failed to get location: ' + err.message), { enableHighAccuracy: true });
+  });
+
+  // ---------- Driver selection ----------
+  selectDriverBtn.addEventListener('click', async () => {
+    driverListEl.innerHTML = '<li class="ts-loading">Loading drivers...</li>';
+    driverModal.setAttribute('aria-hidden','false');
+    driverModal.style.display = 'flex';
+    try {
+      const resp = await fetch('/admin/drivers', { credentials: 'same-origin' });
+      const json = await resp.json();
+      if (!json.success) throw new Error('Failed to load drivers');
+      driverListEl.innerHTML = '';
+      if (!json.data || json.data.length === 0) {
+        driverListEl.innerHTML = '<li class="ts-noData">No drivers found.</li>';
+        return;
+      }
+      json.data.forEach(d => {
+        const li = document.createElement('li');
+        li.className = 'ts-driverItem';
+        const avatar = d.profile_image || '/Svgs/avatarsvg.png';
+        li.innerHTML = `
+          <img src="${avatar}" alt="avatar" class="ts-avatar" onerror="this.onerror=null;this.src='/Svgs/avatarsvg.png'">
+          <div class="ts-driverMeta">
+            <div class="ts-driverName">${escapeHtml(d.fullname || d.email || 'Driver')}</div>
+            <div class="ts-driverSub">${d.is_online ? 'Online' : 'Offline'}</div>
+          </div>
+        `;
+        li.addEventListener('click', () => {
+          driverInput.value = d.fullname || d.email || 'Driver';
+          driverInput.dataset.driverId = d.id;
+          driverModal.style.display = 'none';
+          driverModal.setAttribute('aria-hidden','true');
+        });
+        driverListEl.appendChild(li);
+      });
+    } catch (err) {
+      console.error('load drivers err', err);
+      driverListEl.innerHTML = '<li class="ts-noData">Error loading drivers</li>';
+    }
+  });
+
+  closeDriverModalBtn.addEventListener('click', () => {
+    driverModal.style.display = 'none';
+    driverModal.setAttribute('aria-hidden','true');
+  });
+
+  // ---------- Assign trip ----------
+  assignTripBtn.addEventListener('click', async () => {
+    const dId = driverInput.dataset.driverId;
+    if (!ts_startCoords || !ts_endCoords || !dId) {
+      return alert('Please choose start, destination and assign a driver.');
+    }
+    const payload = {
+      start_lat: ts_startCoords.lat,
+      start_lng: ts_startCoords.lng,
+      destination_lat: ts_endCoords.lat,
+      destination_lng: ts_endCoords.lng,
+      start_address: startInput.value || null,
+      destination_address: endInput.value || null,
+      assigned_driver: dId
+    };
+    try {
+      assignTripBtn.disabled = true;
+      assignTripBtn.textContent = 'Assigning...';
+      const resp = await fetch('/admin/trips', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const j = await resp.json();
+      if (j.success) {
+        alert('Trip assigned successfully.');
+        // optional: reset UI
+        clearAll();
+      } else {
+        alert('Failed to assign trip: ' + (j.message || 'unknown'));
+      }
+    } catch (err) {
+      console.error('assign trip err', err);
+      alert('Error assigning trip: ' + err.message);
+    } finally {
+      assignTripBtn.disabled = false;
+      assignTripBtn.textContent = 'Assign Trip';
+    }
+  });
+
+  // ---------- Clear ----------
+  clearBtn.addEventListener('click', clearAll);
+  function clearAll(){
+    startInput.value = '';
+    endInput.value = '';
+    driverInput.value = '';
+    delete driverInput.dataset.driverId;
+    if (ts_startMarker) { ts_startMarker.setMap(null); ts_startMarker = null; ts_startCoords = null; }
+    if (ts_endMarker) { ts_endMarker.setMap(null); ts_endMarker = null; ts_endCoords = null; }
+    startSuggestions.hidden = true;
+    endSuggestions.hidden = true;
+  }
+
+  // ---------- small utility ----------
+  function escapeHtml(s){ if (s == null) return ''; return String(s).replace(/[&<>"'`=\/]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","`":"&#x60;","/":"&#x2F;"}[ch]||ch)); }
+
+  // expose for debugging
+  window.ts_tripScheduler = {
+    setStartFromCoords, setEndFromCoords, clearAll
+  };
+
+})();
+</script>
+
+<!-- FOR ADMIN TRIP HISTORY=================================================================SUSPENDED DUE TO TIME -->
+<script>
+/* === Trip History (Admin) — client side === */
+
+// DOM refs (trip-history HTML should already be present)
+const th_tripList = document.getElementById("th_tripList");
+const th_modal = document.getElementById("th_tripModal");
+const th_tripDetails = document.getElementById("th_tripDetails");
+const th_modalCloseX = document.getElementById("th_modalCloseX");
+const th_searchInput = document.getElementById("th_searchInput");
+const th_statusFilter = document.getElementById("th_statusFilter");
+const th_dateFrom = document.getElementById("th_dateFrom");
+const th_dateTo = document.getElementById("th_dateTo");
+
+// logged-in admin id — get from your auth/session (example uses localStorage fallback)
+let adminId = null;
+try {
+  adminId = localStorage.getItem("adminId") || null;
+} catch (e) { adminId = null; }
+if (!adminId) {
+  console.warn("Admin ID not found in localStorage; using fallback for development.");
+  // remove or replace fallback in production
+  // adminId = "57fa993e-8bf7-4098-8856-b0a58583b8ef";
+}
+
+// state
+let allTrips = [];
+
+// show a loading placeholder
+function showLoading() {
+  th_tripList.innerHTML = `<p class="th-loading">Loading trips...</p>`;
+}
+function showEmpty() {
+  th_tripList.innerHTML = `<p class="th-empty">No trips found.</p>`;
+}
+
+// fetch trips from server
+async function loadTrips() {
+  showLoading();
+  if (!adminId) {
+    // if admin not available, show message and return
+    th_tripList.innerHTML = `<p class="th-empty">Admin not logged in.</p>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(`/api/admin/trips/${encodeURIComponent(adminId)}`);
+    const j = await res.json();
+    if (!res.ok || !j.success) {
+      console.error("Failed to load trips:", j);
+      th_tripList.innerHTML = `<p class="th-empty">Failed to load trips.</p>`;
+      return;
+    }
+
+    allTrips = Array.isArray(j.data) ? j.data : [];
+    if (allTrips.length === 0) {
+      showEmpty();
+      return;
+    }
+    renderTrips(allTrips);
+  } catch (err) {
+    console.error("Fetch error:", err);
+    th_tripList.innerHTML = `<p class="th-empty">Error fetching trips</p>`;
+  }
+}
+
+// render list of trips
+function renderTrips(trips) {
+  // clear list
+  th_tripList.innerHTML = "";
+  if (!trips || trips.length === 0) {
+    showEmpty();
+    return;
+  }
+
+  trips.forEach(trip => {
+    const driverName = (trip.drivers && trip.drivers.fullname) ? trip.drivers.fullname : (trip.driver_name || trip.assigned_driver || "Unknown Driver");
+    const start = trip.start_address || trip.start_location_name || (trip.start_lat ? `${trip.start_lat.toFixed(5)}, ${trip.start_lng.toFixed(5)}` : 'Unknown');
+    const dest  = trip.destination_address || trip.destination_location_name || (trip.destination_lat ? `${trip.destination_lat.toFixed(5)}, ${trip.destination_lng.toFixed(5)}` : 'Unknown');
+    const status = trip.trip_status || trip.status || "pending";
+
+    const item = document.createElement("div");
+    item.className = `th-tripItem`;
+    item.innerHTML = `
+      <div class="th-tripInfo">
+        <div class="th-tripRoute">${escapeHtml(start)} → ${escapeHtml(dest)}</div>
+        <div class="th-driver">${escapeHtml(driverName)}</div>
+      </div>
+      <span class="th-status ${escapeHtml(status)}">${escapeHtml(status)}</span>
+    `;
+    item.addEventListener("click", () => openTripModal(trip));
+    th_tripList.appendChild(item);
+  });
+}
+
+// escape helper
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"'`=\/]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","`":"&#x60;","/":"&#x2F;"}[ch]||ch));
+}
+
+// open modal
+function openTripModal(trip) {
+  const driverName = (trip.drivers && trip.drivers.fullname) ? trip.drivers.fullname : (trip.driver_name || trip.assigned_driver || "Unknown Driver");
+  const start = trip.start_address || 'Unknown';
+  const dest  = trip.destination_address || 'Unknown';
+  const startTime = trip.start_time || "Not started";
+  const endTime = trip.end_time || "Not ended";
+  const status = trip.trip_status || "pending";
+  const inserted = trip.inserted_at ? new Date(trip.inserted_at).toLocaleString() : "Unknown";
+
+  th_tripDetails.innerHTML = `
+    <p><strong>Driver:</strong> ${escapeHtml(driverName)}</p>
+    <p><strong>Start:</strong> ${escapeHtml(start)}</p>
+    <p><strong>Destination:</strong> ${escapeHtml(dest)}</p>
+    <p><strong>Created:</strong> ${escapeHtml(inserted)}</p>
+    <p><strong>Start Time:</strong> ${escapeHtml(startTime)}</p>
+    <p><strong>End Time:</strong> ${escapeHtml(endTime)}</p>
+    <p><strong>Status:</strong> ${escapeHtml(status)}</p>
+    <p><strong>Notes:</strong> ${escapeHtml(trip.description || 'None')}</p>
+  `;
+
+  th_modal.setAttribute("aria-hidden", "false");
+}
+
+// close modal
+th_modalCloseX?.addEventListener("click", () => th_modal.setAttribute("aria-hidden", "true"));
+
+// filters
+function applyFilters() {
+  const searchValue = (th_searchInput.value || "").trim().toLowerCase();
+  const statusValue = (th_statusFilter.value || "").trim().toLowerCase();
+  const fromVal = th_dateFrom.value ? new Date(th_dateFrom.value) : null;
+  const toVal = th_dateTo.value ? new Date(th_dateTo.value) : null;
+
+  const filtered = allTrips.filter(trip => {
+    // search by driver name, start address, destination address
+    const driverName = (trip.drivers && trip.drivers.fullname) ? trip.drivers.fullname.toLowerCase() : (trip.driver_name || "").toLowerCase();
+    const startAddr = (trip.start_address || "").toLowerCase();
+    const destAddr  = (trip.destination_address || "").toLowerCase();
+    const matchesSearch = !searchValue || driverName.includes(searchValue) || startAddr.includes(searchValue) || destAddr.includes(searchValue);
+
+    const matchesStatus = !statusValue || (trip.trip_status && trip.trip_status.toLowerCase() === statusValue);
+
+    let matchesDate = true;
+    if (fromVal || toVal) {
+      const inserted = trip.inserted_at ? new Date(trip.inserted_at) : null;
+      if (fromVal && inserted && inserted < fromVal) matchesDate = false;
+      if (toVal && inserted && inserted > new Date(toVal.getTime() + 24*60*60*1000 - 1)) matchesDate = false; // include selected day
+    }
+
+    return matchesSearch && matchesStatus && matchesDate;
+  });
+
+  renderTrips(filtered);
+}
+
+th_searchInput?.addEventListener("input", applyFilters);
+th_statusFilter?.addEventListener("change", applyFilters);
+th_dateFrom?.addEventListener("change", applyFilters);
+th_dateTo?.addEventListener("change", applyFilters);
+
+// initial load
+loadTrips();
+</script>
+
+
+
+
+<!-- ✅ Only ONE Google Maps API load -->
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjfxog-rkLM3nfEjP6WHi9IhN35YaK3RQ&callback=initAllMaps">
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjfxog-rkLM3nfEjP6WHi9IhN35YaK3RQ&callback=initTripMap">
+</script>
+<!-- FOR INITIALIZING ALL MAPS INCASE OF MULTIPLE CALLS================== -->
+<script>
+  window.initAllMaps = function() {
+    if (typeof initFleetMap === 'function') initFleetMap();
+    if (typeof initRoutingMap === 'function') initRoutingMap();
+  };
+</script>
+
+
+      <script src="./app.js"></script>
+        </body>
+</html>

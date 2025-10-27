@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HOME PAGE</title>
+    <link rel="stylesheet" href="/hp.css">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="icon" type="image/png" href="/Svgs/sub3.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Audiowide&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Audiowide&family=Onest:wght@100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Audiowide&family=Onest:wght@100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+
+
+<boby>
+   
+    <!-- NAVIGATION BAR -->
+    <nav>               
+        <ul>
+            <li><img oncontextmenu="return false" alt="logo" src="/Svgs/sub3.png"/></li>
+            <li><a href="/register">Sign in | Sign up</a></li>
+        </ul>
+    </nav>
+   <!-- END OF  NAVIGATION BAR -->
+
+   <!-- FIRTS SECTION -->
+    <section id="fdiv">
+      <!-- <h1>cFLEET.</h1>
+      <h1>Route Optimization Simplified.</h1>
+      <h1>Powering 10,000+ fleets</h1>
+      <div id="intros">
+        <div><img alt="intro" src="/Svgs/sub3.png"/><p>Route Optimization Made Easy</p></div>
+        <div><img alt="intro" src="/Svgs/sub1.png"/><p>Overview your inventory</p></div>
+        <div><img alt="intro" src="/Svgs/sub2.png"/><p>Analysis made easy</p></div>
+        <div><img alt="intro" src="/Svgs/sub4.png"/><p>Vehicle tracking simplified</p></div>
+      </div> -->
+      <div id="fdiv_sub1">
+        <h1>cFleet</h1>
+        <h2>Powering 10,000+ fleets</h2>
+        <h2>Route Optimization Simplified...</h2>
+      </div>
+      <div id="fdiv_sub2"></div>
+    </section>
+   <!-- END OF FIRST SECTION -->
+    
+      <!-- SECOND SECTION -->
+       <section id="sdiv">
+       <div style="background-image: url('./images/bg2.jpg');">
+        <p>Boss Feelings</p>
+       </div>
+       <div style="background-image: url('./images/bgimage.jpg');">
+        <p>Pervasive Management</p>
+       </div>
+       <div style="background-image: url('./images/Sd2.png');">
+        <p>Google Maps Integrated</p>
+       </div>
+       <div style="background-image: url('./images/Sd1.png');">
+        <p>Simplified Management</p>
+       </div>
+       </section>
+      <!-- END OF SECOND SECTION -->
+
+
+      <!-- SECTION THREE -->
+       <section id="tdiv">
+        <div style="background-image: url('./images/Tdiv1.png');"><p class="rup">Stay informed in real time, as our system enable admins view drivers current or last known location if they are offline through their phone gps.</p></div>
+        <div style="background-image: url('./images/Tdiv2.png');"><p class="rup">With our system, management is simplified as admins can view and edits drivers and vehicles details.</p></div>
+       </section>
+      <!-- END OF SECTION THREE -->
+
+      <!-- FOURTH DIVISION -->
+       <section id="ldiv">
+        <h4>Contact Us</h4>
+
+        <section id="socials">
+         <div><a><img  href="#" alt="socials" src="./images/facebook.png"></a></div>
+         <div><a><img href="#" alt="socials" src="./images/instagram.png"></a></div>
+         <div><a><img href="#" alt="socials" src="./images/tiktok.png"></a></div>
+         <div><a><img href="#" alt="socials" src="./images/X.jpg"></a></div>
+        </section>
+
+        <div>
+          <form method="post" action="/contact" id="contact">
+            <p>Message Us</p>
+            <input type="text" id="fullname" name="fullname" placeholder="Fullname" required>
+            <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <textarea id="message" name="message" placeholder="Drop your message" required></textarea>
+            <input name="contactus" type="submit" value="Send">
+          </form>
+          
+          <div id="responseMessage" style="display:none; margin-top:10px;"></div>
+          
+
+        </div>
+       </section>
+       <!-- END OF FOURTH DIVISION -->
+
+
+
+        <!-- SHARED -->
+        <section id="loader">
+             <div>
+                <img alt="loader" src="/Svgs/sub3.png">
+             </div>
+        </section>
+
+        <section id="deliver">
+            <p>Message Sent</p>
+        </section>
+        <!-- END OF SHARED -->
+        
+        
+       <footer>
+        <p>&copycFleet <span id="year"></span> All rights reserved</p>
+       </footer>
+      
+
+       <script>
+        // FOR MESSAGE US SECTION ===================================================
+        document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contact");
+  const responseMsg = document.getElementById("responseMessage");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    responseMsg.style.display = "block";
+    responseMsg.style.color = "gray";
+    responseMsg.textContent = "Sending message...";
+
+    const fullname = document.getElementById("fullname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone_number = document.getElementById("phone_number").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    try {
+      const res = await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fullname, email, message, phone_number }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        responseMsg.style.color = "#3acbdf";
+        responseMsg.textContent = "" + data.message;
+        form.reset();
+      } else {
+        responseMsg.style.color = "red";
+        responseMsg.textContent = "" + (data.message || "Submission failed!");
+      }
+
+    } catch (err) {
+      responseMsg.style.color = "red";
+      responseMsg.textContent = "Network error, please try again.";
+    }
+
+    setTimeout(() => {
+      responseMsg.style.opacity = "0";
+      setTimeout(() => {
+        responseMsg.style.display = "none";
+        responseMsg.style.opacity = "1";
+      }, 500);
+    }, 2500);
+  });
+});
+       </script>
+      <script src="./hp.js"></script>
+      <script src="./shared.js"></script>
+</boby>
+
+</html>

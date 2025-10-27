@@ -1,0 +1,63 @@
+<div class="search-section">
+  <h2>🔍 Search Drivers or Vehicles</h2>
+  
+  <!-- Search input -->
+  <input 
+    type="text" 
+    id="searchInput" 
+    placeholder="Type to search drivers or vehicles..." 
+    class="search-box"
+  />
+
+  <!-- Loading indicator -->
+  <div id="loadingSpinner" class="hidden">Searching...</div>
+
+  <!-- Results container -->
+  <div id="results"></div>
+</div>
+
+<style>
+  .search-section {
+    max-width: 600px;
+    margin: 30px auto;
+    text-align: center;
+  }
+
+  .search-box {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  #loadingSpinner {
+    margin-top: 10px;
+    color: #555;
+    font-style: italic;
+  }
+
+  .result-group {
+    text-align: left;
+    margin-top: 20px;
+  }
+
+  .result-item {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .result-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
