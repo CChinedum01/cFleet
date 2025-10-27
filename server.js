@@ -19,8 +19,11 @@ const app = express();
 // routes or API endpoints go here
 app.get("/", (req, res) => res.send("Server is live!"));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
+
+
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
 
 // ================= Middleware =================
 app.use(express.static("static"));
@@ -74,7 +77,7 @@ function authMiddleware(req, res, next) {
 const upload = multer({ storage: multer.memoryStorage() });
 
 // ================= Start Server =================
-const port = process.env.PORT || 5000;
+
 app.listen(port, () => {
   console.log(`listening to port ${port}`);
 });
@@ -317,78 +320,78 @@ app.post("/login", async (req, res) => {
 
 
 
-  // ================== PROFILE PHOTO UPLOAD ==================
-  app.post(
-    "/profile/photo",
-    authMiddleware,
-    upload.single("avatar"),
-    async (req, res) => {
-      try {
-        const userId = req.user.id;
-        const file = req.file;
+// ================== PROFILE PHOTO UPLOAD ==================
+app.post(
+  "/profile/photo",
+  authMiddleware,
+  upload.single("avatar"),
+  async (req, res) => {
+    try {
+      const userId = req.user.id;
+      const file = req.file;
 
-        if (!file) return res.redirect("/app");
+      if (!file) return res.redirect("/app");
 
-        const filename = `avatars/${userId}-${Date.now()}-${file.originalname}`;
+      const filename = `avatars/${userId}-${Date.now()}-${file.originalname}`;
 
-        if (req.user.profile_image) {
-          const oldPath = req.user.profile_image.split("/").slice(-2).join("/");
-          await supabase.storage.from("user-avatars").remove([oldPath]);
-        }
-
-        const { error: uploadError } = await supabaseAdmin.storage
-          .from("user-avatars")
-          .upload(filename, file.buffer, {
-            cacheControl: "3600",
-            upsert: true,
-            contentType: file.mimetype,
-          });
-
-        if (uploadError) {
-          console.error(uploadError);
-          return res.status(500).send("Error uploading photo");
-        }
-
-        const { data: publicUrlData } = supabase.storage
-          .from("user-avatars")
-          .getPublicUrl(filename);
-
-        const publicUrl = publicUrlData.publicUrl;
-
-        const { error: dbError } = await supabaseAdmin
-          .from("users")
-          .update({ profile_image: publicUrl })
-          .eq("id", userId);
-
-        if (dbError) {
-          console.error(dbError);
-          return res.status(500).send("Error updating profile");
-        }
-
-        // ✅ Only include the fields you actually want in the token
-  const token = jwt.sign(
-    {
-      id: req.user.id,
-      fullname: req.user.fullname,
-      email: req.user.email,
-      role: req.user.role,
-      profile_image: publicUrl
-    },
-    JWT_SECRET,
-    { expiresIn: "7d" }
-  );
-
-
-        res.cookie("token", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-        });
-        res.redirect("/app");
-      } catch (err) {
-        console.error("Upload Error:", err);
-        res.status(500).send("Internal Server Error");
+      if (req.user.profile_image) {
+        const oldPath = req.user.profile_image.split("/").slice(-2).join("/");
+        await supabase.storage.from("user-avatars").remove([oldPath]);
       }
+
+      const { error: uploadError } = await supabaseAdmin.storage
+        .from("user-avatars")
+        .upload(filename, file.buffer, {
+          cacheControl: "3600",
+          upsert: true,
+          contentType: file.mimetype,
+        });
+
+      if (uploadError) {
+        console.error(uploadError);
+        return res.status(500).send("Error uploading photo");
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from("user-avatars")
+        .getPublicUrl(filename);
+
+      const publicUrl = publicUrlData.publicUrl;
+
+      const { error: dbError } = await supabaseAdmin
+        .from("users")
+        .update({ profile_image: publicUrl })
+        .eq("id", userId);
+
+      if (dbError) {
+        console.error(dbError);
+        return res.status(500).send("Error updating profile");
+      }
+
+      // ✅ Only include the fields you actually want in the token
+      const token = jwt.sign(
+        {
+          id: req.user.id,
+          fullname: req.user.fullname,
+          email: req.user.email,
+          role: req.user.role,
+          profile_image: publicUrl
+        },
+        JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      });
+      res.redirect("/app");
+    } catch (err) {
+      console.error("Upload Error:", err);
+      res.status(500).send("Internal Server Error");
     }
+  }
 );
 
 // ================== DELETE PROFILE PHOTO ==================
@@ -403,16 +406,16 @@ app.post("/profile/photo/delete", authMiddleware, async (req, res) => {
       await supabase.from("users").update({ profile_image: null }).eq("id", userId);
 
       const token = jwt.sign(
-  {
-    id: req.user.id,
-    fullname: req.user.fullname,
-    email: req.user.email,
-    role: req.user.role,
-    profile_image: null
-  },
-  JWT_SECRET,
-  { expiresIn: "7d" }
-);
+        {
+          id: req.user.id,
+          fullname: req.user.fullname,
+          email: req.user.email,
+          role: req.user.role,
+          profile_image: null
+        },
+        JWT_SECRET,
+        { expiresIn: "7d" }
+      );
 
       res.cookie("token", token, {
         httpOnly: true,
@@ -1378,12 +1381,13 @@ app.post("/contact", async (req, res) => {
 
 // ==================================================================================WEB  APP 
 app.get("/app", authMiddleware, (req, res) => {
-  res.render("app.ejs", { 
-    root: __dirname, 
+  res.render("app.ejs", {
+    root: __dirname,
     user: req.user,
     error: "",   // handled via JSON now
     success: "", // handled via JSON now
-    googleKey: process.env.GOOGLE_MAPS_API_KEY  });
+    googleKey: process.env.GOOGLE_MAPS_API_KEY
+  });
 });
 
 
@@ -1504,27 +1508,27 @@ app.post("/reset-password", async (req, res) => {
   if (!tokenData) return res.render("reset-password", { error: "Invalid token.", success: null, token: null });
 
   // Update password in Supabase Auth
- // Find user by email first
-const { data: userRecord, error: findError } = await supabaseAdmin.auth.admin.listUsers();
-if (findError) {
-  return res.render("reset-password", { error: "Error retrieving user record.", success: null, token });
-}
+  // Find user by email first
+  const { data: userRecord, error: findError } = await supabaseAdmin.auth.admin.listUsers();
+  if (findError) {
+    return res.render("reset-password", { error: "Error retrieving user record.", success: null, token });
+  }
 
-// Look for matching email
-const foundUser = userRecord.users.find(u => u.email === tokenData.email);
-if (!foundUser) {
-  return res.render("reset-password", { error: "User not found.", success: null, token });
-}
+  // Look for matching email
+  const foundUser = userRecord.users.find(u => u.email === tokenData.email);
+  if (!foundUser) {
+    return res.render("reset-password", { error: "User not found.", success: null, token });
+  }
 
-// ✅ Update user password by ID
-const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(foundUser.id, {
-  password,
-});
+  // ✅ Update user password by ID
+  const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(foundUser.id, {
+    password,
+  });
 
-if (updateError) {
-  console.error(updateError);
-  return res.render("reset-password", { error: "Error resetting password.", success: null, token });
-}
+  if (updateError) {
+    console.error(updateError);
+    return res.render("reset-password", { error: "Error resetting password.", success: null, token });
+  }
 
 
   if (updateError)
