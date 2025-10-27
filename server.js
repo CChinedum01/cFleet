@@ -16,6 +16,11 @@ const multer = require("multer");
 
 const app = express();
 
+// routes or API endpoints go here
+app.get("/", (req, res) => res.send("Server is live!"));
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
 
 // ================= Middleware =================
 app.use(express.static("static"));
